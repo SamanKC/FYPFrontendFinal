@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "745510632973",
+    "project_id": "medicalpasal-95a19",
+    "storage_bucket": "medicalpasal-95a19.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:745510632973:android:8577c15f3cbf93d63e1f44",
+        "android_client_info": {
+          "package_name": "com.saman.medicalpasal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "745510632973-180o0vd8es8eq42aaeu32l0moa64np4s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4S8s5aQa0nJ2gNNz8gaeG_Sn8lURSlmg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "745510632973-180o0vd8es8eq42aaeu32l0moa64np4s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
