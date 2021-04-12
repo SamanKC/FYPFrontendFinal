@@ -23,6 +23,10 @@ class _SignUpFormState extends State<SignUpForm> {
   String name;
   String email;
   String phone;
+  String city;
+  String area;
+  String ward;
+  String address;
   String password;
   String confirmPassword;
   String error = '';
@@ -300,6 +304,110 @@ class _SignUpFormState extends State<SignUpForm> {
         hintText: "Enter your mobile number",
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Phone.svg"),
+      ),
+    );
+  }
+
+  TextFormField buildCityFormField() {
+    return TextFormField(
+      // keyboardType: TextInputType.emailAddress,
+      onSaved: (newValue) => city = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kCityNullError);
+        }
+        return null;
+      },
+      validator: (value) {
+        if (value.isEmpty) {
+          addError(error: kCityNullError);
+          return "";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        labelText: "City",
+        hintText: "Enter your City",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
+      ),
+    );
+  }
+
+  TextFormField buildAreaFormField() {
+    return TextFormField(
+      // keyboardType: TextInputType.emailAddress,
+      onSaved: (newValue) => area = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kAreaNullError);
+        }
+        return null;
+      },
+      validator: (value) {
+        if (value.isEmpty) {
+          addError(error: kAreaNullError);
+          return "";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        labelText: "Area",
+        hintText: "Enter your Area",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
+      ),
+    );
+  }
+
+  TextFormField buildWardFormField() {
+    return TextFormField(
+      // keyboardType: TextInputType.emailAddress,
+      onSaved: (newValue) => ward = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kWardNullError);
+        }
+        return null;
+      },
+      validator: (value) {
+        if (value.isEmpty) {
+          addError(error: kWardNullError);
+          return "";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        labelText: "Ward",
+        hintText: "Enter your Ward",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
+      ),
+    );
+  }
+
+  TextFormField buildAddressFormField() {
+    return TextFormField(
+      // keyboardType: TextInputType.emailAddress,
+      onSaved: (newValue) => address = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kAddressNullError);
+        }
+        return null;
+      },
+      validator: (value) {
+        if (value.isEmpty) {
+          addError(error: kAddressNullError);
+          return "";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        labelText: "Address",
+        hintText: "Enter your Address",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
       ),
     );
   }

@@ -1,4 +1,3 @@
-import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medicalpasal/constants.dart';
@@ -6,12 +5,11 @@ import 'package:medicalpasal/userScreens/api/api.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'package:medicalpasal/size_config.dart';
-import 'package:medicalpasal/userScreens/components/default_button.dart';
-import 'package:medicalpasal/userScreens/components/snackBar.dart';
-import 'package:medicalpasal/userScreens/models/Product.dart';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:medicalpasal/userScreens/provider/productsprovider.dart';
 import 'package:medicalpasal/userScreens/screens/Reviews/ReviewsAll.dart';
+import 'package:medicalpasal/userScreens/screens/checkoutpage/checkout.dart';
 import 'package:provider/provider.dart';
 import '../../../../constants.dart';
 
@@ -35,8 +33,10 @@ class _BodyState extends State<Body> {
   // double rating = 3.5;
   // int starCount = 5;
   int valueItemChart = 0;
+  String valueText;
 
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
+  TextEditingController _textFieldController = TextEditingController();
 
   Future getWishlist() async {
     try {
@@ -59,6 +59,17 @@ class _BodyState extends State<Body> {
 
       print(products);
       return products;
+    } on SocketException {
+      return null;
+    }
+  }
+
+  Future getReview() async {
+    try {
+      var response = await Api().getData("review/${widget.product['id']}");
+      var reviews = json.decode(response.body)['data'];
+      print(reviews);
+      return reviews;
     } on SocketException {
       return null;
     }
@@ -126,30 +137,6 @@ class _BodyState extends State<Body> {
             ),
           );
         });
-  }
-
-  Widget _buildReviews(String date, String details, String image) {
-    return ListTile(
-      leading: Container(
-        height: 45.0,
-        width: 45.0,
-        decoration: BoxDecoration(
-            // image: DecorationImage(image: AssetImage(image), fit: BoxFit.cover),
-            borderRadius: BorderRadius.all(Radius.circular(50.0))),
-      ),
-      title: Row(
-        children: <Widget>[
-          Text(
-            date,
-            style: TextStyle(fontSize: 12.0),
-          )
-        ],
-      ),
-      subtitle: Text(
-        details,
-        style: detailText,
-      ),
-    );
   }
 
   Widget buildSmallProductPreview(BuildContext context) {
@@ -558,7 +545,9 @@ class _BodyState extends State<Body> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      ReviewsAll()));
+                                                      ReviewsAll(
+                                                          product:
+                                                              widget.product)));
                                         },
                                       ),
                                       Padding(
@@ -575,10 +564,92 @@ class _BodyState extends State<Body> {
                                 )
                               ],
                             ),
-                            Row(
-                              children: <Widget>[
-                                Text('8 Reviews'),
-                              ],
+                            Padding(
+                              padding: EdgeInsets.only(right: 20.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(
+                                      widget.product['reviewCount'].toString() +
+                                          ' Reviews'),
+                                  InkWell(
+                                    onTap: () {
+                                      return showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              title: Text('Give a Review'),
+                                              content: TextField(
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    valueText = value;
+                                                  });
+                                                },
+                                                controller:
+                                                    _textFieldController,
+                                                decoration: InputDecoration(
+                                                    hintText:
+                                                        "Write your opinion about this product!"),
+                                              ),
+                                              actions: <Widget>[
+                                                FlatButton(
+                                                  color: Color(0xFFB71C1C),
+                                                  textColor: Colors.white,
+                                                  child: Text('CANCEL'),
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      Navigator.pop(context);
+                                                    });
+                                                  },
+                                                ),
+                                                FlatButton(
+                                                  color: kPrimaryColor,
+                                                  textColor: Colors.white,
+                                                  child: Text('POST'),
+                                                  onPressed: () async {
+                                                    Map data = {
+                                                      "product_id":
+                                                          widget.product['id'],
+                                                      "comment":
+                                                          _textFieldController
+                                                              .text
+                                                    };
+                                                    var response = await Api()
+                                                        .postData(
+                                                            data, 'review');
+                                                    var result = jsonDecode(
+                                                        response.body);
+                                                    print(result);
+                                                    _textFieldController.text =
+                                                        "";
+                                                    Get.snackbar(
+                                                      "Thank You",
+                                                      "Thank you for your valuable feedback!",
+                                                      icon: Icon(
+                                                          Icons.shopping_cart),
+                                                      shouldIconPulse: true,
+                                                      barBlur: 20,
+                                                      isDismissible: true,
+                                                      duration:
+                                                          Duration(seconds: 3),
+                                                    );
+                                                  },
+                                                ),
+                                              ],
+                                            );
+                                          });
+                                    },
+                                    child: Text(
+                                      "Give a Review",
+                                      style: TextStyle(
+                                        color: kPrimaryColor,
+                                        decoration: TextDecoration.underline,
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                             Padding(
                               padding: EdgeInsets.only(
@@ -588,34 +659,52 @@ class _BodyState extends State<Body> {
                                   bottom: 7.0),
                               child: _line(),
                             ),
-                            _buildReviews(
-                                '18 Nov 2018',
-                                'Item delivered in good condition. I will recommend to other buyer.',
-                                "assets/images/userimage.png"),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  left: 0.0,
-                                  right: 20.0,
-                                  top: 15.0,
-                                  bottom: 7.0),
-                              child: _line(),
+                            FutureBuilder(
+                              future: getReview(),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  return ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      itemCount: 3,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        var mydata = snapshot.data[index];
+                                        return ListTile(
+                                          leading: Container(
+                                            height: 45.0,
+                                            width: 45.0,
+                                            decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                    image: NetworkImage(
+                                                        mydata['image']),
+                                                    fit: BoxFit.cover),
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(50.0))),
+                                          ),
+                                          title: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Text(mydata['name']),
+                                              Text(
+                                                mydata['review_date'],
+                                                style:
+                                                    TextStyle(fontSize: 12.0),
+                                              )
+                                            ],
+                                          ),
+                                          subtitle: Text(
+                                            mydata['comment'],
+                                            style: detailText,
+                                          ),
+                                        );
+                                      });
+                                } else {
+                                  return LinearProgressIndicator();
+                                }
+                              },
                             ),
-                            _buildReviews(
-                                '18 Nov 2018',
-                                'Item delivered in good condition. I will recommend to other buyer.',
-                                "assets/images/userimage.png"),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  left: 0.0,
-                                  right: 20.0,
-                                  top: 15.0,
-                                  bottom: 7.0),
-                              child: _line(),
-                            ),
-                            _buildReviews(
-                                '18 Nov 2018',
-                                'Item delivered in good condition. I will recommend to other buyer.',
-                                "assets/images/userimage.png"),
                             Padding(padding: EdgeInsets.only(bottom: 20.0)),
                           ],
                         ),
@@ -768,21 +857,51 @@ class _BodyState extends State<Body> {
                   ),
 
                   /// Button Pay
-                  InkWell(
-                    onTap: () {},
-                    child: Container(
-                      height: 45.0,
-                      width: 200.0,
-                      decoration: BoxDecoration(
-                        color: Colors.indigoAccent,
-                      ),
-                      child: Center(
-                        child: Text(
-                          "Pay",
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.w700),
-                        ),
-                      ),
+                  Container(
+                    height: 45.0,
+                    width: 200.0,
+                    decoration: BoxDecoration(
+                      color: Colors.indigoAccent,
+                    ),
+                    child: Center(
+                      child: widget.product['stock'] == 1
+                          ? InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => CheckOut(
+                                      totalAmount: widget.product["price"],
+                                      totalDiscount: widget.product["price"] -
+                                          widget.product["sellingPrice"],
+                                      totalSp: widget.product["sellingPrice"],
+                                      orderTotalAmount:
+                                          widget.product["sellingPrice"],
+                                      // productDetails: [
+                                      //   {
+                                      //     'product_id': mydata['id'],
+                                      //     'quantity': 1,
+                                      //     'price': mydata["sellingPrice"],
+                                      //   },
+                                      // ],
+                                      // totalPaidPrice: mydata["sellingPrice"],
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                "Pay",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                            )
+                          : Text(
+                              "Out of Stock",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700),
+                            ),
                     ),
                   ),
                 ],
@@ -802,3 +921,12 @@ Widget _line() {
     color: Colors.black12,
   );
 }
+
+// Padding(
+//                                         padding: EdgeInsets.only(
+//                                             left: 0.0,
+//                                             right: 20.0,
+//                                             top: 15.0,
+//                                             bottom: 7.0),
+//                                         child: _line(),
+//                                       ),

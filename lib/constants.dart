@@ -23,13 +23,17 @@ Image kAppLogo = Image.asset('assets/images/medicalpasallogo.png');
 
 const defaultDuration = Duration(milliseconds: 250);
 
-final String apiLink = 'http://192.168.1.126:8000';
+final String apiLink = 'http://192.168.254.8:8000';
 
 // Form Error
 final RegExp emailValidatorRegExp =
     RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 final RegExp phoneValidatorRegExp = RegExp(r"(?:\+977[- ])?\d{2}-?\d{7,8}");
 const String kNameNullError = "Please Enter your Name";
+const String kCityNullError = "Please Enter your City";
+const String kAreaNullError = "Please Enter your Ward";
+const String kAddressNullError = "Please Enter your Address";
+const String kWardNullError = "Please Enter your Area";
 const String kEmailNullError = "Please Enter your email";
 const String kInvalidEmailError = "Please Enter Valid Email";
 const String kPassNullError = "Please Enter your password";
@@ -39,7 +43,7 @@ const String kNamelNullError = "Please Enter your name";
 // const String kNamelNullError = "Please Enter your name";
 const String kPhoneNumberNullError = "Please Enter your phone number";
 const String kInvalidPhoneNumberNullError = "Please Enter a valid phone number";
-const String kAddressNullError = "Please Enter your address";
+// const String kAddressNullError = "Please Enter your address";
 
 // final otpInputDecoration = InputDecoration(
 //   contentPadding: EdgeInsets.symmetric(vertical: 15),

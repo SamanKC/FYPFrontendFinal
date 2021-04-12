@@ -1,13 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:medicalpasal/size_config.dart';
-import 'package:medicalpasal/userScreens/components/expandedDetailReviews.dart';
+import 'package:medicalpasal/constants.dart';
+import 'package:medicalpasal/userScreens/api/api.dart';
+import 'dart:convert';
+import 'dart:io';
 
 class ReviewsAll extends StatefulWidget {
+  final product;
+
+  const ReviewsAll({Key key, this.product}) : super(key: key);
   @override
   _ReviewsAllState createState() => _ReviewsAllState();
 }
 
 class _ReviewsAllState extends State<ReviewsAll> {
+  int reviewCount;
+  Future getReview() async {
+    try {
+      var response = await Api().getData("review/${widget.product['id']}");
+      var reviews = json.decode(response.body)['data'];
+      print(reviews);
+      return reviews;
+    } on SocketException {
+      return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -52,7 +70,7 @@ class _ReviewsAllState extends State<ReviewsAll> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             SizedBox(width: 5.0),
-                            Text('8 Reviews')
+                            Text(widget.product['reviewCount'].toString())
                           ]),
                     ],
                   ),
@@ -62,111 +80,49 @@ class _ReviewsAllState extends State<ReviewsAll> {
                       left: 20.0, right: 20.0, top: 15.0, bottom: 7.0),
                   child: _line(),
                 ),
-                ListTile(
-                  leading: Container(
-                    height: 45.0,
-                    width: 45.0,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage("assets/images/userimage.png"),
-                            fit: BoxFit.cover),
-                        borderRadius: BorderRadius.all(Radius.circular(50.0))),
-                  ),
-                  title: Row(
-                    children: <Widget>[
-                      SizedBox(width: 8.0),
-                      Text(
-                        "01 Jan 2019",
-                        style: TextStyle(fontSize: 12.0),
-                      )
-                    ],
-                  ),
-                  subtitle: ExpansionTileReview(
-                    title: Text(
-                      'Item delivered in good condition. I will recommend to other buyer',
-                      style: TextStyle(
-                          color: Colors.black54,
-                          letterSpacing: 0.3,
-                          wordSpacing: 0.5),
-                    ),
-                    children: [
-                      SizedBox(height: 10.0),
-                      Text(
-                        "Very Recommended item i love it very love it",
-                        style: TextStyle(
-                            color: Colors.black54,
-                            letterSpacing: 0.3,
-                            wordSpacing: 0.5),
-                      ),
-                      SizedBox(height: 10.0),
-                      Text(
-                        "Item delivered in good condition. I will recommend to other buyer.",
-                        style: TextStyle(
-                            color: Colors.black54,
-                            letterSpacing: 0.3,
-                            wordSpacing: 0.5),
-                      ),
-                    ],
-//                              child: Text("Read More",style: _subHeaderCustomStyle.copyWith(fontSize: 13.0,color: Colors.blueAccent),
-//                              textAlign: TextAlign.end,
-//                              ),
-                  ),
+                FutureBuilder(
+                  future: getReview(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: 3,
+                          itemBuilder: (BuildContext context, int index) {
+                            var mydata = snapshot.data[index];
+                            return ListTile(
+                              leading: Container(
+                                height: 45.0,
+                                width: 45.0,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: NetworkImage(mydata['image']),
+                                        fit: BoxFit.cover),
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(50.0))),
+                              ),
+                              title: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(mydata['name']),
+                                  Text(
+                                    mydata['review_date'],
+                                    style: TextStyle(fontSize: 12.0),
+                                  )
+                                ],
+                              ),
+                              subtitle: Text(
+                                mydata['comment'],
+                                style: detailText,
+                              ),
+                            );
+                          });
+                    } else {
+                      return LinearProgressIndicator();
+                    }
+                  },
                 ),
-                Padding(
-                  padding: EdgeInsets.only(
-                      left: 20.0, right: 20.0, top: 15.0, bottom: 7.0),
-                  child: _line(),
-                ),
-                _buildReviews(
-                    '18 Nov 2018',
-                    'Item delivered in good condition. I will recommend to other buyer.',
-                    (rating) {},
-                    "assets/images/userimage.png"),
-                Padding(
-                  padding: EdgeInsets.only(
-                      left: 20.0, right: 20.0, top: 15.0, bottom: 7.0),
-                  child: _line(),
-                ),
-                _buildReviews(
-                    '18 Nov 2018',
-                    'Item delivered in good condition. I will recommend to other buyer.',
-                    (rating) {},
-                    "assets/images/userimage.png"),
-                Padding(
-                  padding: EdgeInsets.only(
-                      left: 20.0, right: 20.0, top: 15.0, bottom: 7.0),
-                  child: _line(),
-                ),
-                _buildReviews(
-                    '18 Nov 2018',
-                    'Item delivered in good condition. I will recommend to other buyer.',
-                    (rating) {},
-                    "assets/images/userimage.png"),
-                Padding(
-                  padding: EdgeInsets.only(
-                      left: 20.0, right: 20.0, top: 15.0, bottom: 7.0),
-                  child: _line(),
-                ),
-                _buildReviews(
-                    '18 Nov 2018',
-                    'Item delivered in good condition. I will recommend to other buyer.',
-                    (rating) {},
-                    "assets/images/userimage.png"),
-                Padding(
-                  padding: EdgeInsets.only(
-                      left: 20.0, right: 20.0, top: 15.0, bottom: 7.0),
-                  child: _line(),
-                ),
-                _buildReviews(
-                    '18 Nov 2018',
-                    'Item delivered in good condition. I will recommend to other buyer.',
-                    (rating) {},
-                    "assets/images/userimage.png"),
-                SizedBox(
-                  height: 10.0,
-                ),
-                _line(),
-                Padding(padding: EdgeInsets.only(bottom: 40.0)),
               ],
             ),
           ),
