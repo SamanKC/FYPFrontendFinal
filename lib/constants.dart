@@ -23,7 +23,7 @@ Image kAppLogo = Image.asset('assets/images/medicalpasallogo.png');
 
 const defaultDuration = Duration(milliseconds: 250);
 
-final String apiLink = 'http://192.168.254.8:8000';
+final String apiLink = 'http://192.168.1.126:8000';
 
 // Form Error
 final RegExp emailValidatorRegExp =
@@ -45,13 +45,22 @@ const String kPhoneNumberNullError = "Please Enter your phone number";
 const String kInvalidPhoneNumberNullError = "Please Enter a valid phone number";
 // const String kAddressNullError = "Please Enter your address";
 
-// final otpInputDecoration = InputDecoration(
-//   contentPadding: EdgeInsets.symmetric(vertical: 15),
-//   // EdgeInsets.symmetric(vertical: getProportionateScreenWidth(15)),
-//   border: outlineInputBorder(),
-//   focusedBorder: outlineInputBorder(),
-//   enabledBorder: outlineInputBorder(),
-// );
+final otpInputDecoration = InputDecoration(
+  contentPadding: EdgeInsets.symmetric(vertical: 15),
+  // EdgeInsets.symmetric(vertical: getProportionateScreenWidth(15)),
+  border: OutlineInputBorder(
+    borderRadius: BorderRadius.circular(15),
+    borderSide: BorderSide(color: kTextColor),
+  ),
+  focusedBorder: OutlineInputBorder(
+    borderRadius: BorderRadius.circular(15),
+    borderSide: BorderSide(color: kTextColor),
+  ),
+  enabledBorder: OutlineInputBorder(
+    borderRadius: BorderRadius.circular(15),
+    borderSide: BorderSide(color: kTextColor),
+  ),
+);
 
 // OutlineInputBorder outlineInputBorder() {
 //   return OutlineInputBorder(

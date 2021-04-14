@@ -1,37 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:medicalpasal/driverScreens/bottomNavBar.dart';
+import 'package:medicalpasal/userScreens/api/api.dart';
 import 'package:medicalpasal/userScreens/screens/home/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:medicalpasal/userScreens/bottomNavBar.dart';
 
 import '../../../constants.dart';
 import '../../../selectionPage.dart';
-
-// class SplashPage extends StatelessWidget {
-//   static String routeName = "/splash";
-//   @override
-//   Widget build(BuildContext context) {
-//     // You have to call it on your starting screen
-//     SizeConfig().init(context);
-//     void checkToken() async{
-//       SharedPreferences preferences =
-//                     await SharedPreferences.getInstance();
-//       String token = preferences.getString('token');
-//       if(token == null){
-//         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SelectionPage()));
-//       }
-//       else{
-//         Navigator.popAndPushNamed(context, HomeScreen.routeName);
-//       }
-//     }
-//   //   return SplashScreen(
-//   //       seconds: 2,
-//   //       navigateAfterFuture: checkToken(),
-//   //       navigateAfterSeconds: ,
-//   //       image: kAppLogo,
-//   //       backgroundColor: Colors.white,
-//   //       photoSize: 150.0,
-//   //       loaderColor: kPrimaryColor);
-//   // }
-// }
 
 class SplashPage extends StatefulWidget {
   static String routeName = "/splash";
@@ -41,6 +18,22 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  @override
+  void initState() {
+    super.initState();
+    getuserDetails();
+    checkToken();
+  }
+
+  int user_type;
+  Future getuserDetails() async {
+    var response = await Api().getData('user');
+    var data = json.decode(response.body);
+    user_type = data['user_type'];
+    setState(() {});
+    return data;
+  }
+
   void checkToken() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String token = preferences.getString('token');
@@ -54,16 +47,18 @@ class _SplashPageState extends State<SplashPage> {
             context, MaterialPageRoute(builder: (context) => SelectionPage()));
       });
     } else {
-      Future.delayed(Duration(seconds: 5), () {
-        Navigator.popAndPushNamed(context, HomeScreen.routeName);
+      Future.delayed(Duration(seconds: 5), () async {
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+        preferences.getString('token');
+        // getuserDetails();
+        print(user_type.toString());
+        if (user_type == 1) {
+          Navigator.popAndPushNamed(context, LandingPage.routeName);
+        } else if (user_type == 2) {
+          Navigator.popAndPushNamed(context, DriverLandingPage.routeName);
+        }
       });
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    checkToken();
   }
 
   @override

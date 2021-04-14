@@ -9,7 +9,7 @@ import 'package:medicalpasal/size_config.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:medicalpasal/userScreens/provider/productsprovider.dart';
 import 'package:medicalpasal/userScreens/screens/Reviews/ReviewsAll.dart';
-import 'package:medicalpasal/userScreens/screens/checkoutpage/checkout.dart';
+import 'package:medicalpasal/userScreens/screens/checkoutpage/checkoutPage.dart';
 import 'package:provider/provider.dart';
 import '../../../../constants.dart';
 
@@ -871,21 +871,20 @@ class _BodyState extends State<Body> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => CheckOut(
-                                      totalAmount: widget.product["price"],
-                                      totalDiscount: widget.product["price"] -
-                                          widget.product["sellingPrice"],
-                                      totalSp: widget.product["sellingPrice"],
-                                      orderTotalAmount:
-                                          widget.product["sellingPrice"],
-                                      // productDetails: [
-                                      //   {
-                                      //     'product_id': mydata['id'],
-                                      //     'quantity': 1,
-                                      //     'price': mydata["sellingPrice"],
-                                      //   },
-                                      // ],
-                                      // totalPaidPrice: mydata["sellingPrice"],
-                                    ),
+                                        // totalAmount: widget.product["price"],
+                                        // totalDiscount: widget.product["price"] -
+                                        //     widget.product["sp"],
+                                        // totalSp: widget.product["sp"],
+                                        // orderTotalAmount: widget.product["sp"],
+                                        // productDetails: [
+                                        //   {
+                                        //     'product_id': mydata['id'],
+                                        //     'quantity': 1,
+                                        //     'price': mydata["sellingPrice"],
+                                        //   },
+                                        // ],
+                                        // totalPaidPrice: mydata["sellingPrice"],
+                                        ),
                                   ),
                                 );
                               },

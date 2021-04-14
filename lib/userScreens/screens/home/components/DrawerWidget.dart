@@ -55,28 +55,6 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 padding: EdgeInsets.zero,
                 children: <Widget>[
                   UserAccountsDrawerHeader(
-                    // margin: EdgeInsets.zero,
-                    // padding: EdgeInsets.zero,
-                    // child: Stack(children: <Widget>[
-                    //   Container(
-                    //     padding: EdgeInsets.all(20),
-                    //     child: Center(
-                    //       child: Image.asset(
-                    //         'assets/images/medicalpasallogo.png',
-                    //         width: 200,
-                    //         height: 200,
-                    //       ),
-                    //     ),
-                    //   ),
-                    //   Positioned(
-                    //       bottom: 12.0,
-                    //       left: 16.0,
-                    //       child: Text("Developed by Saman KC",
-                    //           style: TextStyle(
-                    //               color: Color(0xFF545454),
-                    //               fontSize: 10.0,
-                    //               fontWeight: FontWeight.w500))),
-                    // ]));
                     decoration: BoxDecoration(
                       color: Theme.of(context).hintColor.withOpacity(0.1),
 //              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(35)),
@@ -90,10 +68,10 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       style: Theme.of(context).textTheme.caption,
                     ),
                     currentAccountPicture: CircleAvatar(
-                      backgroundColor: Theme.of(context).accentColor,
-                      backgroundImage:
-                          NetworkImage(apiLink + '/profileImage/' + image),
-                    ),
+                        backgroundColor: Theme.of(context).accentColor,
+                        backgroundImage: image != null
+                            ? NetworkImage(apiLink + '/profileImage/' + image)
+                            : AssetImage('assets/images/userimage.png')),
                   ),
                   _createDrawerItem(
                     icon: Icons.home,

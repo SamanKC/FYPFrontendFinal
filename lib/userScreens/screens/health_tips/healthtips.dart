@@ -4,7 +4,6 @@ import 'package:medicalpasal/userScreens/components/coustom_bottom_nav_bar.dart'
 import '../../../enums.dart';
 import 'components/body.dart';
 
-
 class HealthTips extends StatefulWidget {
   static String routeName = "/healthtips";
 
@@ -24,8 +23,8 @@ class _HealthTipsState extends State<HealthTips> {
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
           child: Body(),
         ),
-        bottomNavigationBar:
-            CustomBottomNavBar(selectedMenu: MenuState.healthtips),
+        // bottomNavigationBar:
+        //     CustomBottomNavBar(selectedMenu: MenuState.healthtips),
       ),
     );
   }

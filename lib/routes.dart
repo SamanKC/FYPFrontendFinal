@@ -1,10 +1,13 @@
 import 'package:flutter/widgets.dart';
 import 'package:medicalpasal/userScreens/onboard/onBoardingScreen.dart';
 import 'package:medicalpasal/userScreens/screens/profile/components/notifications/notifications_screen.dart';
+import 'package:medicalpasal/userScreens/screens/forgot_password/forgot_password_screen.dart';
 import 'userScreens/screens/aboutUs/aboutUs.dart';
 import 'userScreens/screens/profile/components/accountSettings.dart';
 import 'userScreens/screens/cart/cart_screen.dart';
-import 'userScreens/screens/checkoutpage/checkout.dart';
+import 'userScreens/bottomNavBar.dart';
+import 'driverScreens/bottomNavBar.dart';
+import 'userScreens/screens/checkoutpage/checkoutPage.dart';
 import 'userScreens/screens/details/details_screen.dart';
 import 'userScreens/screens/health_tips/healthtips.dart';
 import 'userScreens/screens/home/home_screen.dart';
@@ -20,11 +23,12 @@ import 'driverScreens/screens/orders/orders.dart';
 final Map<String, WidgetBuilder> routes = {
   SplashPage.routeName: (context) => SplashPage(),
   SignInScreen.routeName: (context) => SignInScreen(),
-  // ForgotPasswordScreen.routeName: (context) => ForgotPasswordScreen(),
+  ForgotPasswordScreen.routeName: (context) => ForgotPasswordScreen(),
   // LoginSuccessScreen.routeName: (context) => LoginSuccessScreen(),
   SignUpScreen.routeName: (context) => SignUpScreen(),
   // CompleteProfileScreen.routeName: (context) => CompleteProfileScreen(),
   // OtpScreen.routeName: (context) => OtpScreen(),
+  LandingPage.routeName: (context) => LandingPage(),
   HomeScreen.routeName: (context) => HomeScreen(),
   // GoogleMapsIntegration.routeName: (context) => GoogleMapsIntegration(),
   DetailsScreen.routeName: (context) => DetailsScreen(),
@@ -41,4 +45,5 @@ final Map<String, WidgetBuilder> routes = {
 
 //drivers routes
   Orders.routeName: (context) => Orders(),
+  DriverLandingPage.routeName: (context) => DriverLandingPage(),
 };

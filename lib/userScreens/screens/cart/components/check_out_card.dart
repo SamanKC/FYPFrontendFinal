@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medicalpasal/userScreens/components/default_button.dart';
-import 'package:medicalpasal/userScreens/screens/checkoutpage/checkout.dart';
+import 'package:medicalpasal/userScreens/screens/checkoutpage/checkoutPage.dart';
 import 'package:medicalpasal/userScreens/provider/productsprovider.dart';
 
 import 'package:provider/provider.dart';

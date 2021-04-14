@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
         drawer: DrawerWidget(),
         appBar: appBarWidget(context),
         body: Body(),
-        bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.home),
+        // bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.home),
       ),
     );
   }

@@ -11,7 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:medicalpasal/userScreens/components/custom_surfix_icon.dart';
 import '../../../../constants.dart';
 import 'package:get/get.dart';
-import 'package:medicalpasal/driverScreens/screens/orders/orders.dart';
+import 'package:medicalpasal/driverScreens/bottomNavBar.dart';
 
 class SignForm extends StatefulWidget {
   @override
@@ -33,7 +33,7 @@ class _SignFormState extends State<SignForm> {
   void initState() {
     super.initState();
     oneSignal();
-    // getuserDetails();
+    getuserDetails();
   }
 
   final _formKey = GlobalKey<FormState>();
@@ -69,8 +69,8 @@ class _SignFormState extends State<SignForm> {
   Future getuserDetails() async {
     var response = await Api().getData('user');
     var data = json.decode(response.body);
-    // user_type = data['user_type'];
-    // setState(() {});
+    user_type = data['user_type'];
+    setState(() {});
     return data;
   }
 
@@ -149,7 +149,8 @@ class _SignFormState extends State<SignForm> {
                   if (result['user']['user_type'] == 1) {
                     Navigator.popAndPushNamed(context, HomeScreen.routeName);
                   } else if (result['user']['user_type'] == 2) {
-                    Navigator.popAndPushNamed(context, Orders.routeName);
+                    Navigator.popAndPushNamed(
+                        context, DriverLandingPage.routeName);
                   } else {
                     Get.snackbar(
                       "Sorry",
