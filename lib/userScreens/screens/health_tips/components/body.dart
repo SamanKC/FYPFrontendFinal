@@ -6,7 +6,6 @@ import 'package:medicalpasal/userScreens/api/api.dart';
 
 import '../../../../size_config.dart';
 
-
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -35,24 +34,25 @@ class Body extends StatelessWidget {
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext context, int index) {
                   var mydata = snapshot.data[index];
-                  return InkWell(
-                      onTap: () {
-                        print('tip pressed');
-                      },
-                      child: Card(
-                        elevation: 2,
-                        child: ListTile(
+                  return Card(
+                    elevation: 2,
+                    child: Column(
+                      children: [
+                        ListTile(
                           leading: Text(mydata['id'].toString()),
                           title: Text(mydata['name']),
-                          subtitle: RichText(
-                            overflow: TextOverflow.ellipsis,
-                            strutStyle: StrutStyle(fontSize: 12.0),
-                            text: TextSpan(
-                                style: TextStyle(color: Colors.black),
-                                text: mydata['description']),
+                        ),
+                        Divider(),
+                        Container(
+                          padding: EdgeInsets.all(8),
+                          child: Text(
+                            mydata['description'],
+                            style: TextStyle(color: Colors.black, fontSize: 16),
                           ),
                         ),
-                      ));
+                      ],
+                    ),
+                  );
                 },
               );
             } else if (snapshot.hasError) {

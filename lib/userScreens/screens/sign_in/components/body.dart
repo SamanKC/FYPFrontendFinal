@@ -37,8 +37,8 @@ class Body extends StatelessWidget {
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
                 SignForm(),
 
-                SizedBox(height: 20),
-                // SizedBox(height: getProportionateScreenHeight(20)),
+                // SizedBox(height: 20),
+                SizedBox(height: getProportionateScreenHeight(20)),
               ],
             ),
           ),

@@ -47,7 +47,7 @@ class AboutUs extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(10.0),
                   child: Divider(
                     height: 0.5,
                     color: Colors.black12,
@@ -56,7 +56,7 @@ class AboutUs extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Text(
-                    "Est sint occaecat commodo consequat sunt ex nostrud enim laborum reprehenderit et cupidatat labore veniam. Exercitation adipisicing nisi Lorem aliqua laborum. Ut sint cillum proident aute deserunt do et incididunt consequat amet. Incididunt enim mollit proident officia adipisicing in ad qui duis labore id nisi ut ipsum. Veniam voluptate adipisicing laboris ex mollit tempor sit fugiat eu labore. Consectetur elit ut pariatur pariatur quis aliqua enim commodo ut anim id. Proident dolore sunt minim aliquip occaecat ut.",
+                    "MedicalPasal is an e-commerce platform brought to you by “MediNepal” and “Dr. Saathi Pvt. Ltd.” – one of Nepal’s most trusted medical supplier with over 10 years of experience in the healthcare industry.",
                     style: textFormFieldRegular,
                     textAlign: TextAlign.justify,
                   ),

@@ -5,7 +5,7 @@ import 'package:medicalpasal/driverScreens/screens/orders/orders.dart';
 import 'package:medicalpasal/driverScreens/screens/profile/profile.dart';
 
 class DriverLandingPage extends StatefulWidget {
-  static String routeName = "/landingPage";
+  static String routeName = "/driverlandingPage";
 
   @override
   _DriverLandingPageState createState() => _DriverLandingPageState();

@@ -3,7 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:medicalpasal/userScreens/provider/productsprovider.dart';
 
 import 'package:provider/provider.dart';
-
+import 'package:get/get.dart';
 import '../../../../size_config.dart';
 import 'emptycart.dart';
 
@@ -27,17 +27,6 @@ class _BodyState extends State<Body> {
             itemCount: providerData.product.length,
             itemBuilder: (context, index) {
               var mydata = providerData.product[index];
-              int payPrice = mydata.price;
-              int payQuantity = mydata.quantity;
-              int oneCartTotal = payPrice * payQuantity;
-              for (var i = 0; i < providerData.product.length; i++) {
-                totalCardTotal = totalCardTotal + oneCartTotal;
-              }
-
-              mydata.amount = payTotal;
-              print("total");
-              print(totalCardTotal);
-              print(mydata.id);
 
               ///
               /// Widget for list view slide delete
@@ -69,13 +58,20 @@ class _BodyState extends State<Body> {
               //     ),
               //   ],
               return Dismissible(
-                key: Key(mydata.id.toString()),
+                key: Key(mydata.id),
                 direction: DismissDirection.endToStart,
                 onDismissed: (direction) {
                   // deleteWishlist(widget.alldata['wishListId']);
-                  setState(() {
-                    providerData.removeProduct(mydata.id);
-                  });
+                  Provider.of<ProductData>(context).removeProduct(mydata.id);
+                  Get.snackbar(
+                    "Removed",
+                    "Product Removed from Cart",
+                    icon: Icon(Icons.shopping_bag_rounded),
+                    shouldIconPulse: true,
+                    barBlur: 20,
+                    isDismissible: true,
+                    duration: Duration(seconds: 3),
+                  );
                 },
                 background: Container(
                   padding: EdgeInsets.symmetric(horizontal: 20),

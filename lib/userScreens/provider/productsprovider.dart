@@ -13,11 +13,11 @@ class ProductData extends ChangeNotifier {
   int index = 0;
   void addProduct(
       {String id,
-        String name,
-        int price,
-        int quantity,
-        String image,
-        int sellingPrice}) {
+      String name,
+      int price,
+      int quantity,
+      String image,
+      int sellingPrice}) {
     // chek if productlist list contain any product inside it
 
     // if product list is empty add 1st product whose inex will be zero
@@ -86,8 +86,6 @@ class ProductData extends ChangeNotifier {
 
   /// [removeFromCart] removes items from the cart, back to the shop
   void removeProduct(String id) {
-    // _product.remove(item);
-    // // allItems['shop items'].add(item);
     for (var product in _product) {
       if (product.id == id) {
         flag = true;

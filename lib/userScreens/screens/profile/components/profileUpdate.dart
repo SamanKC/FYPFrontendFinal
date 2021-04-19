@@ -97,6 +97,8 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
 
     setState(() {
       imagePicker = resultList;
+      showUpload = !showUpload;
+
       if (error == null) _error = 'No Error Dectected';
     });
   }
@@ -148,6 +150,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
       showAlertDialog(context, 'Success', 'ProfileImage Updated Successfully');
     }
     imagePicker = null;
+    showUpload = false;
     setState(() {});
   }
 
@@ -235,7 +238,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                 height: 20,
               ),
               // buildGridView(),
-              imagePicker == null
+              showUpload == false
                   ? SizedBox()
                   : RaisedButton(
                       onPressed: () {

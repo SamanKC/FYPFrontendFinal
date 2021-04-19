@@ -17,6 +17,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+    print("===================================");
+    print(widget.mydata);
     return Body(product: widget.mydata);
   }
 }

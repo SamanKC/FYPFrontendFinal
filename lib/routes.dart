@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:medicalpasal/selectionPage.dart';
 import 'package:medicalpasal/userScreens/onboard/onBoardingScreen.dart';
 import 'package:medicalpasal/userScreens/screens/profile/components/notifications/notifications_screen.dart';
 import 'package:medicalpasal/userScreens/screens/forgot_password/forgot_password_screen.dart';
@@ -24,6 +25,7 @@ final Map<String, WidgetBuilder> routes = {
   SplashPage.routeName: (context) => SplashPage(),
   SignInScreen.routeName: (context) => SignInScreen(),
   ForgotPasswordScreen.routeName: (context) => ForgotPasswordScreen(),
+  SelectionPage.routeName: (context) => SelectionPage(),
   // LoginSuccessScreen.routeName: (context) => LoginSuccessScreen(),
   SignUpScreen.routeName: (context) => SignUpScreen(),
   // CompleteProfileScreen.routeName: (context) => CompleteProfileScreen(),

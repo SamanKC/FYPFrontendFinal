@@ -58,7 +58,6 @@ class _ReviewsAllState extends State<ReviewsAll> {
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 20.0,
-                        fontFamily: "Popins",
                         fontWeight: FontWeight.w700),
                   ),
                 ),

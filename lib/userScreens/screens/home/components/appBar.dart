@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:medicalpasal/constants.dart';
 import 'package:medicalpasal/userScreens/models/searchModel.dart';
+import 'package:showcaseview/showcase.dart';
+import 'package:showcaseview/showcase_widget.dart';
 
+import '../home_screen.dart';
 import 'icon_btn_with_counter.dart';
 
 Widget appBarWidget(context) {
@@ -28,6 +31,7 @@ Widget appBarWidget(context) {
           showSearch(context: context, delegate: DataSearch());
         },
       ),
+
       // IconBtnWithCounter(
       //   numOfitem: Provider.of<ProductData>(context).totalItems,
       //   icon: Icons.shopping_cart,

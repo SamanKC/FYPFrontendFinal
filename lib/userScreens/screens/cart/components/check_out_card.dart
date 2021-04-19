@@ -61,7 +61,25 @@ class CheckoutCard extends StatelessWidget {
                   child: DefaultButton(
                     text: "Check Out",
                     press: () {
-                      Navigator.pushNamed(context, CheckOut.routeName);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CheckOut(
+                                  totalAmount: providerData.totalAmount,
+                                  totalDiscount: providerData.totalDiscount,
+                                  totalSp: providerData.totalSp,
+                                  orderTotalAmount: providerData.totalSp,
+                                  productDetails: providerData.product.map((e) {
+                                    return {
+                                      'product_id': e.id,
+                                      'quantity': e.quantity,
+                                      'price': e.price,
+                                    };
+                                  }).toList(),
+                                  totalPaidPrice: providerData.totalSp,
+                                )),
+                      );
+                      // Navigator.pushNam3+6ed(context, CheckOut.routeName);
                     },
                   ),
                 ),

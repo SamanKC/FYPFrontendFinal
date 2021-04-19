@@ -2,10 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:medicalpasal/userScreens/api/api.dart';
+import 'package:medicalpasal/userScreens/bottomNavBar.dart';
 import 'package:medicalpasal/userScreens/components/default_button.dart';
 import 'package:medicalpasal/userScreens/components/form_error.dart';
 import 'package:medicalpasal/userScreens/helper/keyboard.dart';
-import 'package:medicalpasal/userScreens/screens/home/home_screen.dart';
+import 'package:medicalpasal/userScreens/screens/forgot_password/forgot_password_screen.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:medicalpasal/userScreens/components/custom_surfix_icon.dart';
@@ -101,8 +102,8 @@ class _SignFormState extends State<SignForm> {
               Text("Remember me"),
               Spacer(),
               GestureDetector(
-                // onTap: () => Navigator.pushNamed(
-                //     context, ForgotPasswordScreen.routeName),
+                onTap: () => Navigator.pushNamed(
+                    context, ForgotPasswordScreen.routeName),
                 child: Text(
                   "Forgot Password",
                   style: TextStyle(decoration: TextDecoration.underline),
@@ -147,7 +148,7 @@ class _SignFormState extends State<SignForm> {
                   // getuserDetails();
                   print(user_type.toString());
                   if (result['user']['user_type'] == 1) {
-                    Navigator.popAndPushNamed(context, HomeScreen.routeName);
+                    Navigator.popAndPushNamed(context, LandingPage.routeName);
                   } else if (result['user']['user_type'] == 2) {
                     Navigator.popAndPushNamed(
                         context, DriverLandingPage.routeName);

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:medicalpasal/driverScreens/components/drawerWidget.dart';
+import 'package:medicalpasal/userScreens/screens/home/components/appBar.dart';
+import 'package:medicalpasal/userScreens/screens/home/components/discountproducts.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 import 'TopPromoSlider.dart';
 import 'categories.dart';
@@ -21,11 +25,16 @@ class _BodyState extends State<Body> {
           // DiscountBanner(),
           TopPromoSlider(),
           Categories(),
+
           // SpecialOffers(),
           SizedBox(height: 30.0),
           // SizedBox(height: getProportionateScreenWidth(30.0)),
           homeViewText(text: 'Recent Products', view: () {}),
+
           RecentProducts(),
+          SizedBox(height: 30.0),
+          homeViewText(text: 'Discount Sale', view: () {}),
+          DiscountProducts(),
           SizedBox(height: 30.0),
           // SizedBox(height: getProportionateScreenWidth(30.0)),
         ],

@@ -14,19 +14,19 @@ import 'package:showcaseview/showcase_widget.dart';
 
 import '../../../../constants.dart';
 
-class RecentProducts extends StatefulWidget {
-  static String routeName = "/recentProducts";
+class DiscountProducts extends StatefulWidget {
+  static String routeName = "/DiscountProducts";
   //Get Products data
   @override
-  _RecentProductsState createState() => _RecentProductsState();
+  _DiscountProductsState createState() => _DiscountProductsState();
 }
 
-class _RecentProductsState extends State<RecentProducts> {
+class _DiscountProductsState extends State<DiscountProducts> {
   List<dynamic> products = [];
   int numOfItems = 1;
   Future getProductsData() async {
     try {
-      var response = await Api().getData('recentProducts');
+      var response = await Api().getData('discountProducts');
       var products = json.decode(response.body)['data'];
       print(products);
       return products;

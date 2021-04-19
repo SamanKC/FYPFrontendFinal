@@ -102,6 +102,8 @@ class _DriverProfileState extends State<DriverProfile> {
 
     setState(() {
       imagePicker = resultList;
+      showUpload = !showUpload;
+
       if (error == null) _error = 'No Error Dectected';
     });
   }
@@ -111,11 +113,12 @@ class _DriverProfileState extends State<DriverProfile> {
     var data = json.decode(response.body);
 
     print(name);
-    setState(() {
-      customerId = data['id'];
-      name = data['name'];
-      isLoading = false;
-    });
+    //   isLoading = false;
+    // setState(() {
+    customerId = data['id'];
+    name = data['name'];
+    // });
+    return data;
   }
 
   // Future getUser() async {
@@ -149,9 +152,6 @@ class _DriverProfileState extends State<DriverProfile> {
     } else {
       showAlertDialog(context, 'Success', 'ProfileImage Updated Successfully');
     }
-    setState(() {
-      imagePicker = null;
-    });
   }
 
   //getprofile image
@@ -189,88 +189,92 @@ class _DriverProfileState extends State<DriverProfile> {
         padding: EdgeInsets.symmetric(vertical: 20),
         child: Column(
           children: [
-            isLoading == true
-                ? Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : Column(
-                    children: [
-                      // buildGridView(),
-                      SizedBox(
-                        height: 115,
-                        width: 115,
-                        child: Stack(
-                          fit: StackFit.expand,
-                          overflow: Overflow.visible,
-                          children: [
-                            FutureBuilder(
-                              future: getProfileImage(),
-                              builder: (context, snapshot) {
-                                if (snapshot.hasData) {
-                                  return snapshot.data['profile_image'] == null
-                                      ? CircleAvatar(
-                                          backgroundImage: AssetImage(
-                                              'assets/images/userimage.png'),
-                                        )
-                                      : CircleAvatar(
-                                          backgroundImage: NetworkImage(
-                                            apiLink +
-                                                '/profileImage/' +
-                                                snapshot.data['profile_image'],
-                                          ),
-                                        );
-                                } else if (snapshot.hasError) {
-                                  return Text('Cannot load at this time');
-                                } else {
-                                  return Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                }
-                              },
-                            ),
-                            Positioned(
-                              right: -16,
-                              bottom: 0,
-                              child: SizedBox(
-                                height: 46,
-                                width: 46,
-                                child: FlatButton(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(50),
-                                    side: BorderSide(color: Colors.white),
-                                  ),
-                                  color: Color(0xFFF5F6F9),
-                                  onPressed: () {
-                                    // final data = {
-
-                                    print(
-                                        "profile pic image button is pressed");
-                                    loadAssets();
-                                    // save(customerId);
-                                  },
-                                  child: SvgPicture.asset(
-                                      "assets/icons/Camera Icon.svg"),
+            SizedBox(
+              height: 115,
+              width: 115,
+              child: Stack(
+                fit: StackFit.expand,
+                overflow: Overflow.visible,
+                children: [
+                  FutureBuilder(
+                    future: getProfileImage(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return snapshot.data['profile_image'] == null
+                            ? CircleAvatar(
+                                backgroundImage:
+                                    AssetImage('assets/images/userimage.png'),
+                              )
+                            : CircleAvatar(
+                                backgroundImage: NetworkImage(
+                                  apiLink +
+                                      '/profileImage/' +
+                                      snapshot.data['profile_image'],
                                 ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      // buildGridView(),
-                      imagePicker == null
-                          ? SizedBox()
-                          : RaisedButton(
-                              onPressed: () {
-                                save(customerId);
-                              },
-                              child: Text('Upload'),
-                            ),
-                      Text(name),
-                    ],
+                              );
+                      } else if (snapshot.hasError) {
+                        return Text('Cannot load at this time');
+                      } else {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    },
                   ),
+                  Positioned(
+                    right: -16,
+                    bottom: 0,
+                    child: SizedBox(
+                      height: 46,
+                      width: 46,
+                      child: FlatButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50),
+                          side: BorderSide(color: Colors.white),
+                        ),
+                        color: Color(0xFFF5F6F9),
+                        onPressed: () {
+                          // final data = {
+
+                          print("profile pic image button is pressed");
+                          loadAssets();
+
+                          // save(customerId);
+                        },
+                        child: SvgPicture.asset("assets/icons/Camera Icon.svg"),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            // buildGridView(),
+            showUpload == false
+                ? SizedBox()
+                : RaisedButton(
+                    onPressed: () {
+                      save(customerId);
+                    },
+                    child: Text('Upload'),
+                  ),
+            FutureBuilder(
+              future: getuserDetails(),
+              // initialData: InitialData,
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                if (snapshot.hasData) {
+                  return Text(name);
+                } else if (snapshot.hasError) {
+                  return Text('Cannot load at this time');
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
+            ),
             SizedBox(height: 20),
             ProfileMenu(
               text: "Settings",

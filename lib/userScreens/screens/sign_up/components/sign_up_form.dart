@@ -5,7 +5,7 @@ import 'package:medicalpasal/userScreens/components/form_error.dart';
 import 'package:medicalpasal/userScreens/helper/keyboard.dart';
 import 'package:medicalpasal/userScreens/onboard/onBoardingScreen.dart';
 import 'dart:convert';
-
+import 'package:get/get.dart';
 import 'package:medicalpasal/userScreens/components/custom_surfix_icon.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -80,11 +80,25 @@ class _SignUpFormState extends State<SignUpForm> {
           SizedBox(height: getProportionateScreenHeight(30)),
           // SizedBox(height: 30),
 
+          buildCityFormField(),
+          SizedBox(height: getProportionateScreenHeight(30)),
+
+          buildWardFormField(),
+          SizedBox(height: getProportionateScreenHeight(30)),
+
+          buildAreaFormField(),
+          SizedBox(height: getProportionateScreenHeight(30)),
+
+          buildAddressFormField(),
+          SizedBox(height: getProportionateScreenHeight(30)),
+
           buildPasswordFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
           // SizedBox(height: 30),
 
           buildConfirmPassFormField(),
+          SizedBox(height: getProportionateScreenHeight(30)),
+
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           // SizedBox(height: 30),
@@ -100,6 +114,10 @@ class _SignUpFormState extends State<SignUpForm> {
                   'name': name,
                   'email': email,
                   'phone': phone,
+                  'city': city,
+                  'ward': ward,
+                  'area': area,
+                  'address': address,
                   'password': password,
                 };
 
@@ -113,10 +131,19 @@ class _SignUpFormState extends State<SignUpForm> {
                 print(result['message']);
 
                 if (result['code'] == 200) {
-                  SharedPreferences preferences =
-                      await SharedPreferences.getInstance();
-                  preferences.setString('token', result['token']);
+                  // SharedPreferences preferences =
+                  //     await SharedPreferences.getInstance();
+                  // preferences.setString('token', result['token']);
                   Navigator.popAndPushNamed(context, OnBoarding.routeName);
+                  Get.snackbar(
+                    "Success",
+                    "User Registered Successfully",
+                    icon: Icon(Icons.account_circle),
+                    shouldIconPulse: true,
+                    barBlur: 20,
+                    isDismissible: true,
+                    duration: Duration(seconds: 3),
+                  );
                 } else {
                   error = result['message'];
                   setState(() {});
@@ -125,7 +152,7 @@ class _SignUpFormState extends State<SignUpForm> {
                       barrierDismissible: false,
                       builder: (context) {
                         return AlertDialog(
-                          title: Text('error'),
+                          title: Text('Error'),
                           content: Text(error.toString()),
                           actions: [
                             RaisedButton(
@@ -329,7 +356,7 @@ class _SignUpFormState extends State<SignUpForm> {
         labelText: "City",
         hintText: "Enter your City",
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/location.svg"),
       ),
     );
   }
@@ -355,7 +382,7 @@ class _SignUpFormState extends State<SignUpForm> {
         labelText: "Area",
         hintText: "Enter your Area",
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/location.svg"),
       ),
     );
   }
@@ -381,7 +408,7 @@ class _SignUpFormState extends State<SignUpForm> {
         labelText: "Ward",
         hintText: "Enter your Ward",
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/location.svg"),
       ),
     );
   }
@@ -407,7 +434,7 @@ class _SignUpFormState extends State<SignUpForm> {
         labelText: "Address",
         hintText: "Enter your Address",
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/location.svg"),
       ),
     );
   }

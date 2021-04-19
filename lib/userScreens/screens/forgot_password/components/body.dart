@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:medicalpasal/size_config.dart';
 import 'package:medicalpasal/userScreens/components/default_button.dart';
 import 'package:medicalpasal/userScreens/components/form_error.dart';
-import 'package:medicalpasal/userScreens/screens/otp/otp_screen.dart';
 import 'package:medicalpasal/userScreens/helper/keyboard.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
 import 'dart:convert';
+import 'package:get/get.dart';
+import 'package:medicalpasal/userScreens/screens/sign_in/sign_in_screen.dart';
 import 'package:medicalpasal/userScreens/components/no_account_text.dart';
 import 'package:medicalpasal/userScreens/api/api.dart';
 import 'package:medicalpasal/userScreens/components/custom_surfix_icon.dart';
@@ -55,7 +55,9 @@ class ForgotPassForm extends StatefulWidget {
 class _ForgotPassFormState extends State<ForgotPassForm> {
   final _formKey = GlobalKey<FormState>();
   List<String> errors = [];
+  String error = '';
   String email;
+  bool flag = false;
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -102,12 +104,67 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
           FormError(errors: errors),
           SizedBox(height: SizeConfig.screenHeight * 0.1),
           DefaultButton(
-            text: "Continue",
-            press: () {
+            text: flag == false ? "Continue" : "Loading",
+            press: () async {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
                 // if all are valid then go to success screen
-                Navigator.pushNamed(context, OtpScreen.routeName);
+                print(email);
+                setState(() {
+                  flag = true;
+                });
+                Map data = {
+                  'email': email,
+                };
+
+                // if all are valid then go to success screen
+                KeyboardUtil.hideKeyboard(context);
+
+                var response =
+                    await Api().loginRegister(data, 'forgotPassword');
+
+                var result = json.decode(response.body);
+                setState(() {
+                  flag = false;
+                });
+                print(result['status']);
+                print(result['message']);
+                // print(result['user_type']);
+                // getuserDetails();
+                if (result['status'] == true) {
+                  Navigator.popAndPushNamed(context, SignInScreen.routeName);
+                  Get.snackbar(
+                    "Success",
+                    "Please check your email",
+                    icon: Icon(Icons.account_circle),
+                    shouldIconPulse: true,
+                    barBlur: 20,
+                    isDismissible: true,
+                    duration: Duration(seconds: 3),
+                  );
+                } else {
+                  error = result['message'];
+                  setState(() {});
+                  showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: Text('Error'),
+                          content: Text(error.toString()),
+                          actions: [
+                            RaisedButton(
+                              onPressed: () {
+                                error = '';
+                                setState(() {});
+                                Navigator.pop(context);
+                              },
+                              child: Text('OK'),
+                            )
+                          ],
+                        );
+                      });
+                }
               }
             },
           ),

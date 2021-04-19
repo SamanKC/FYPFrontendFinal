@@ -1,4 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:showcaseview/showcase.dart';
+import 'package:showcaseview/showcase_widget.dart';
 import '../constants.dart';
 
 import 'package:medicalpasal/userScreens/screens/cart/cart_screen.dart';
@@ -8,6 +13,8 @@ import 'package:medicalpasal/userScreens/screens/profile/profile_screen.dart';
 
 class LandingPage extends StatefulWidget {
   static String routeName = "/landingPage";
+  static const PREFERENCES_IS_FIRST_LAUNCH_STRING =
+      "PREFERENCES_IS_FIRST_LAUNCH_STRING";
 
   @override
   _LandingPageState createState() => _LandingPageState();
@@ -25,10 +32,32 @@ class _LandingPageState extends State<LandingPage> {
     //   child: Text("5"),
     // ),
   ];
+  final _keyOne = GlobalKey();
+  final _keyTwo = GlobalKey();
+  final _keyThree = GlobalKey();
+  final _keyFour = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => _isFirstLaunch().then((result) {
+              if (result)
+                ShowCaseWidget.of(context).startShowCase([
+                  _keyOne,
+                  _keyTwo,
+                  _keyThree,
+                  _keyFour,
+                ]);
+            }));
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {});
+  }
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       body: tabs[_cIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _cIndex,
@@ -43,17 +72,34 @@ class _LandingPageState extends State<LandingPage> {
 
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard_outlined),
+            icon: CustomShowcaseWidget(
+              globalKey: _keyOne,
+              description: 'HomePage',
+              child: Icon(Icons.dashboard_outlined),
+            ),
             label: "Home",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.library_books_outlined),
+            icon: CustomShowcaseWidget(
+              globalKey: _keyTwo,
+              description: 'Tips',
+              child: Icon(Icons.library_books_outlined),
+            ),
             label: 'Health Tips',
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.add_shopping_cart_rounded), label: 'Cart'),
+              icon: CustomShowcaseWidget(
+                globalKey: _keyFour,
+                description: 'Your Cart',
+                child: Icon(Icons.add_shopping_cart_rounded),
+              ),
+              label: 'Cart'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.settings_applications_outlined),
+              icon: CustomShowcaseWidget(
+                globalKey: _keyThree,
+                description: 'Your Settings',
+                child: Icon(Icons.settings_applications_outlined),
+              ),
               label: 'Settings'),
         ],
         onTap: (index) {
@@ -63,5 +109,18 @@ class _LandingPageState extends State<LandingPage> {
         },
       ),
     );
+  }
+
+  Future<bool> _isFirstLaunch() async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    bool isFirstLaunch = sharedPreferences
+            .getBool(LandingPage.PREFERENCES_IS_FIRST_LAUNCH_STRING) ??
+        true;
+
+    if (isFirstLaunch)
+      sharedPreferences.setBool(
+          LandingPage.PREFERENCES_IS_FIRST_LAUNCH_STRING, false);
+
+    return isFirstLaunch;
   }
 }

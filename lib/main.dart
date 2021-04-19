@@ -1,8 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:showcaseview/showcase_widget.dart';
 import 'routes.dart';
 import 'theme.dart';
 import 'userScreens/provider/productsprovider.dart';
@@ -28,6 +32,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  BuildContext myContext;
   @override
   void initState() {
     super.initState();
@@ -44,27 +49,26 @@ class _MyAppState extends State<MyApp> {
     OneSignal.shared
         .promptUserForPushNotificationPermission(fallbackToSettings: true);
     // oneSignal();
+    //
+    //
   }
-
-  // void oneSignal() async {
-  //   var status = await OneSignal.shared.getPermissionSubscriptionState();
-
-  //   // the user's ID with OneSignal
-  //   String onesignalUserId = status.subscriptionStatus.userId;
-  //   print('this is onesignal user id');
-  //   print(onesignalUserId);
-  // }
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Medical Pasal',
-      theme: theme(),
-      // home: SplashScreen(),
-      // We use routeName so that we dont need to remember the name
-      initialRoute: SplashPage.routeName,
-      routes: routes,
+    return ShowCaseWidget(
+      builder: Builder(
+          builder: (context) => GetMaterialApp(
+                debugShowCheckedModeBanner: false,
+                title: 'Medical Pasal',
+                theme: theme(),
+                // home: SplashScreen(),
+                // We use routeName so that we dont need to remember the name
+                initialRoute: SplashPage.routeName,
+                routes: routes,
+              )),
+      autoPlay: false,
+      autoPlayDelay: Duration(seconds: 1),
+      autoPlayLockEnable: false,
     );
   }
 }

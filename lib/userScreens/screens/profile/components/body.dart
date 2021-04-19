@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:medicalpasal/userScreens/api/api.dart';
 import 'package:medicalpasal/userScreens/screens/aboutUs/aboutUs.dart';
+import 'package:medicalpasal/userScreens/screens/profile/components/myorders/invoice.dart';
 import 'package:medicalpasal/userScreens/screens/sign_in/sign_in_screen.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,15 +23,18 @@ class Body extends StatelessWidget {
           ProfileUpdate(),
           SizedBox(height: 20),
           ProfileMenu(
-            text: "My Account",
-            icon: "assets/icons/User Icon.svg",
-            press: () => {},
-          ),
-          ProfileMenu(
             text: "Notifications",
             icon: "assets/icons/Bell.svg",
             press: () {
               Navigator.pushNamed(context, Notifications.routeName);
+            },
+          ),
+          ProfileMenu(
+            text: "Settings",
+            icon: "assets/icons/Shop Icon.svg",
+            press: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Invoice()));
             },
           ),
           ProfileMenu(

@@ -35,60 +35,30 @@ class _OnBoardingState extends State<OnBoarding> {
       imagePadding: EdgeInsets.zero,
     );
 
-    return SafeArea(
-      child: IntroductionScreen(
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+      ),
+      body: IntroductionScreen(
         key: introKey,
         pages: [
           PageViewModel(
+            title: "Ayurvedic Pasal",
+            body:
+                "Find the ayurvedic products for thsi covid situation with fast delivery at your doorstep",
+            image: _buildImage('img1'),
+            decoration: pageDecoration,
+          ),
+          PageViewModel(
             title: "Fast Delivery",
-            body: "Fast Product delivery to you.",
-            image: _buildImage('img1'),
-            decoration: pageDecoration,
-          ),
-          PageViewModel(
-            title: "Learn as you go",
-            body:
-                "Download the Stockpile app and master the market with our mini-lesson.",
+            body: "Fast Product Delivery to you",
             image: _buildImage('img2'),
             decoration: pageDecoration,
           ),
           PageViewModel(
-            title: "Kids and teens",
-            body:
-                "Kids and teens can track their stocks 24/7 and place trades that you approve.",
+            title: "Safe Delivery",
+            body: "Safely deliver products to you",
             image: _buildImage('img3'),
-            decoration: pageDecoration,
-          ),
-          PageViewModel(
-            title: "Another title page",
-            body: "Another beautiful body text for this example onboarding",
-            image: _buildImage('img2'),
-            footer: RaisedButton(
-              onPressed: () {
-                introKey.currentState?.animateScroll(0);
-              },
-              child: const Text(
-                'FooButton',
-                style: TextStyle(color: Colors.white),
-              ),
-              color: Colors.lightBlue,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-            ),
-            decoration: pageDecoration,
-          ),
-          PageViewModel(
-            title: "Title of last page",
-            bodyWidget: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Text("Click on ", style: bodyStyle),
-                Icon(Icons.edit),
-                Text(" to edit a post", style: bodyStyle),
-              ],
-            ),
-            image: _buildImage('img1'),
             decoration: pageDecoration,
           ),
         ],

@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 
 import 'package:medicalpasal/userScreens/api/api.dart';
+import 'package:medicalpasal/userScreens/screens/details/details_screen.dart';
+
+import '../../../../constants.dart';
 
 class SearchItem extends StatefulWidget {
   final query;
@@ -33,7 +36,25 @@ class _SearchItemState extends State<SearchItem> {
               itemCount: snapshot.data.length,
               itemBuilder: (BuildContext context, int index) {
                 var mydata = snapshot.data[index];
-                return Text(mydata['name']);
+                return ListTile(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DetailsScreen(
+                                  mydata: mydata,
+                                )),
+                      );
+                      // this.query = mydata['name'].toString();
+                      // showResults(context);
+                    },
+                    leading: CircleAvatar(
+                      backgroundImage:
+                          NetworkImage(apiLink + '/' + mydata['image']),
+                    ),
+                    // Image.network(mydata["featureImage"]),
+                    title: Text(mydata['name'].toString()),
+                    subtitle: Text("Rs. " + mydata['sp'].toString()));
               },
             );
           } else if (snapshot.hasError) {

@@ -1,22 +1,22 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:medicalpasal/driverScreens/screens/orders/orderDetails.dart';
+
 import 'package:medicalpasal/userScreens/api/api.dart';
-import 'components/emptyOrders.dart';
-import '../../../constants.dart';
-import 'components/body.dart';
+import 'package:medicalpasal/userScreens/screens/profile/components/myorders/orderitem.dart';
 
-class Orders extends StatefulWidget {
-  static String routeName = "/ordersdriver";
+import '../../../../../constants.dart';
 
+class Invoice extends StatefulWidget {
   @override
-  _OrdersState createState() => _OrdersState();
+  _InvoiceState createState() => _InvoiceState();
 }
 
-class _OrdersState extends State<Orders> {
+class _InvoiceState extends State<Invoice> {
   var refreshkey = GlobalKey<RefreshIndicatorState>();
+
   Future getInvoiceData() async {
     try {
       var response = await Api().getData('invoice');
@@ -30,7 +30,7 @@ class _OrdersState extends State<Orders> {
 
   Future getInvoiceDetails(int id) async {
     try {
-      var response = await Api().getData('invoicedetails/$id');
+      var response = await Api().getData('invoiceDetails/$id');
       var invoice = json.decode(response.body)['data'];
       print(invoice);
       // var data = json.decode(invoice);
@@ -60,6 +60,7 @@ class _OrdersState extends State<Orders> {
   }
 
   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -87,18 +88,14 @@ class _OrdersState extends State<Orders> {
               children: <Widget>[
                 FutureBuilder(
                   future: getInvoiceData(),
-                  // initialData: [],
+                  initialData: [],
                   builder: (context, snapshot) {
-                    if (snapshot.data == null) {
-                      return EmptyOrders();
-                    }
                     switch (snapshot.connectionState) {
                       case ConnectionState.waiting:
                         return Center(
                           child: CircularProgressIndicator(),
                         );
                         break;
-
                       default:
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,33 +121,6 @@ class _OrdersState extends State<Orders> {
                                         padding: const EdgeInsets.only(
                                             left: 20, right: 10),
                                         child: ListTile(
-                                          onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        OrderDetails(
-                                                          invoiceid: mydata[
-                                                              'invoice_id'],
-                                                          username: mydata[
-                                                              'username'],
-                                                          city: mydata['city'],
-                                                          area: mydata['area'],
-                                                          ward: mydata['ward'],
-                                                          address:
-                                                              mydata['address'],
-                                                          phone:
-                                                              mydata['phone'],
-                                                          total: mydata['total']
-                                                              .toString(),
-                                                          transactiontype: mydata[
-                                                              'transaction_type'],
-                                                          transactionstatus: mydata[
-                                                              'transaction_status'],
-                                                          status:
-                                                              mydata['status'],
-                                                        )));
-                                          },
                                           contentPadding:
                                               EdgeInsets.symmetric(vertical: 0),
                                           leading: Icon(

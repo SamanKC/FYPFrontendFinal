@@ -8,6 +8,8 @@ import 'userScreens/screens/sign_in/sign_in_screen.dart';
 import 'userScreens/screens/sign_up/sign_up_screen.dart';
 
 class SelectionPage extends StatelessWidget {
+  static String routeName = "/selection";
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
