@@ -10,52 +10,6 @@ import 'package:medicalpasal/userScreens/provider/productsprovider.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert';
 
-// class CheckOut extends StatefulWidget {
-//   static String routeName = "/checkout";
-//   @override
-//   _CheckOutState createState() => _CheckOutState();
-// }
-
-// class _CheckOutState extends State<CheckOut> {
-//   GlobalKey<FormState> _key = GlobalKey<FormState>();
-//   @override
-//   Widget build(BuildContext context) {
-//     ProductData providerData = Provider.of<ProductData>(context);
-
-//     return SafeArea(
-//       child: Scaffold(
-//         body: Column(
-//           children: [
-//             Form(
-//               key: _key,
-//               child: RaisedButton(
-//                 onPressed: () async {
-//                   Map data = {
-//                     'total': providerData.totalAmount,
-//                     'transaction_type': 0,
-//                     'products': providerData.product.map((e) {
-//                       return {
-//                         'product_id': e.id,
-//                         'quantity': e.quantity,
-//                         'price': e.price,
-//                       };
-//                     }).toList()
-//                   };
-
-//                   var response = await Api().postData(data, 'invoice');
-//                   var result = json.decode(response.body);
-//                   print(result);
-//                 },
-//                 child: Text('Confirm'),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 class CheckOut extends StatefulWidget {
   static String routeName = "/checkout";
   final totalAmount;
