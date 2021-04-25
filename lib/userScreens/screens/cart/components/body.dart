@@ -28,35 +28,6 @@ class _BodyState extends State<Body> {
             itemBuilder: (context, index) {
               var mydata = providerData.product[index];
 
-              ///
-              /// Widget for list view slide delete
-              ///
-              // return Slidable(
-              //   delegate: SlidableDrawerDelegate(),
-              //   actionExtentRatio: 0.25,
-              //   secondaryActions: <Widget>[
-              //     IconSlideAction(
-              //       key: Key(mydata.id),
-              //       caption: 'Delete',
-              //       color: Colors.red,
-              //       icon: Icons.delete,
-              //       onTap: () {
-              //         setState(() {
-              //           Provider.of<ProductData>(context)
-              //               .removeProduct(mydata.id);
-              //         });
-              //         Scaffold.of(context).showSnackBar(SnackBar(
-              //           content: Text("Items Cart Deleted"),
-              //           duration: Duration(seconds: 2),
-              //           backgroundColor: Colors.redAccent,
-              //         ));
-
-              //         ///
-              //         /// SnackBar show if cart delet
-              //         ///
-              //       },
-              //     ),
-              //   ],
               return Dismissible(
                 key: Key(mydata.id),
                 direction: DismissDirection.endToStart,
@@ -142,14 +113,6 @@ class _BodyState extends State<Body> {
                                     ),
                                     Padding(
                                         padding: EdgeInsets.only(top: 10.0)),
-                                    // Text(
-                                    //   '${items[position].desc}',
-                                    //   style: TextStyle(
-                                    //     color: Colors.black54,
-                                    //     fontWeight: FontWeight.w500,
-                                    //     fontSize: 12.0,
-                                    //   ),
-                                    // ),
                                     Padding(
                                         padding: EdgeInsets.only(top: 10.0)),
                                     Text('Rs. ' + mydata.price.toString()),

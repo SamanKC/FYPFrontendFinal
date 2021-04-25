@@ -28,9 +28,6 @@ class _LandingPageState extends State<LandingPage> {
     HealthTips(),
     CartScreen(),
     ProfileScreen(),
-    // Center(
-    //   child: Text("5"),
-    // ),
   ];
   final _keyOne = GlobalKey();
   final _keyTwo = GlobalKey();

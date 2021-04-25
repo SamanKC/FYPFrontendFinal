@@ -37,8 +37,6 @@ class _RecentProductsState extends State<RecentProducts> {
 
   @override
   Widget build(BuildContext context) {
-    // final ApiProvider = Provider.of(context,listen: )
-
     SizeConfig().init(context);
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
@@ -50,7 +48,6 @@ class _RecentProductsState extends State<RecentProducts> {
               if (snapshot.hasData) {
                 return Row(
                   children: [
-                    // Text(mydata['name']),
                     ...List.generate(snapshot.data.length, (index) {
                       var mydata = snapshot.data[index];
 
@@ -62,9 +59,6 @@ class _RecentProductsState extends State<RecentProducts> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  // builder: (context) => ProductDetailScreen(
-                                  //       product: mydata,
-                                  //     )),
                                   builder: (context) => DetailsScreen(
                                         mydata: mydata,
                                       )),
@@ -228,18 +222,6 @@ class _RecentProductsState extends State<RecentProducts> {
                                                       backgroundColor:
                                                           Colors.green,
                                                     ));
-
-                                                    // Provider.of<ProductData>(
-                                                    //         context)
-                                                    //     .addProduct(
-                                                    //   id: mydata['id']
-                                                    //       .toString(),
-                                                    //   name: mydata['name'],
-                                                    //   price: mydata['price'],
-                                                    //   quantity: numOfItems,
-                                                    //   image: mydata['image'],
-                                                    // );
-                                                    // print(mydata);
                                                   },
                                                 ),
                                               ),

@@ -87,9 +87,9 @@ class _OrdersState extends State<Orders> {
               children: <Widget>[
                 FutureBuilder(
                   future: getInvoiceData(),
-                  // initialData: [],
+                  initialData: [],
                   builder: (context, snapshot) {
-                    if (snapshot.data == null) {
+                    if (snapshot.data.isEmpty) {
                       return EmptyOrders();
                     }
                     switch (snapshot.connectionState) {

@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:medicalpasal/userScreens/api/api.dart';
-
+import 'package:medicalpasal/constants.dart';
 import '../../../../size_config.dart';
 
 class Body extends StatelessWidget {
@@ -39,16 +39,24 @@ class Body extends StatelessWidget {
                     child: Column(
                       children: [
                         ListTile(
-                          leading: Text(mydata['id'].toString()),
-                          title: Text(mydata['name']),
-                        ),
-                        Divider(),
-                        Container(
-                          padding: EdgeInsets.all(8),
-                          child: Text(
-                            mydata['description'],
-                            style: TextStyle(color: Colors.black, fontSize: 16),
+                          leading: Text(
+                            mydata['id'].toString(),
+                            style: TextStyle(color: Colors.white),
                           ),
+                          title: Text(mydata['name'],
+                              style: TextStyle(color: Colors.white),
+                              textAlign: TextAlign.justify),
+                          tileColor: kPrimaryColor,
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(12),
+                          color: Colors.black12,
+                          child: Text(mydata['description'],
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                              ),
+                              textAlign: TextAlign.justify),
                         ),
                       ],
                     ),

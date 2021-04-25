@@ -50,9 +50,7 @@ class _SplashPageState extends State<SplashPage> {
       });
     } else {
       Future.delayed(Duration(seconds: 5), () async {
-        // SharedPreferences preferences = await SharedPreferences.getInstance();
-        // preferences.getString('token');
-        // getuserDetails();
+    
         print(usertype.toString());
         if (usertype == 1) {
           await Navigator.popAndPushNamed(context, LandingPage.routeName);
@@ -71,14 +69,10 @@ class _SplashPageState extends State<SplashPage> {
         body: Center(
       child: Container(
         child: kAppLogo,
-        // height: 250,
         height: MediaQuery.of(context).size.height / 6,
-        // height: getProportionateScreenWidth(250),
-        // width: getProportionateScreenHeight(20),
-        // width: 300,
+   
         width: MediaQuery.of(context).size.height / 4,
       ),
-      // Text('Medical Pasal'),
     ));
   }
 }

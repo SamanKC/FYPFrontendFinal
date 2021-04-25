@@ -58,33 +58,10 @@ class _CartCardState extends State<CartCard> {
               maxLines: 2,
             ),
             SizedBox(height: 10),
-            // Text.rich(
-            //   TextSpan(
-            //     text: "\$${cart.product.price}",
-            //     style: TextStyle(
-            //         fontWeight: FontWeight.w600, color: kPrimaryColor),
-            //     children: [
-            //       TextSpan(
-            //           text: " x${cart.numOfItem}",
-            //           style: Theme.of(context).textTheme.bodyText1),
-            //     ],
-            //   ),
-            // )
             Container(
               height: 40,
               child: Row(
                 children: [
-                  // ButtonTheme(
-                  //   minWidth: 50,
-                  //   child: OutlineButton.icon(
-                  //     onPressed: () {},
-                  //     icon: Icon(Icons.add),
-                  //     label: Text('Add'),
-                  //     padding: EdgeInsets.zero,
-                  //     shape: RoundedRectangleBorder(
-                  //         borderRadius: BorderRadius.circular(20)),
-                  //   ),
-                  // ),
                   Container(
                     width: 70,
                     height: 70,
@@ -102,13 +79,6 @@ class _CartCardState extends State<CartCard> {
                       child: Icon(Icons.remove),
                     ),
                   ),
-                  // FloatingActionButton(
-                  //   heroTag: "btn1",
-                  //   elevation: 2,
-                  //   onPressed: () {},
-                  //   child: Icon(Icons.add),
-                  //   backgroundColor: kPrimaryColor,
-                  // ),
                   Text(
                     numOfItems.toString(),
                     style: TextStyle(fontSize: 18),
@@ -125,17 +95,9 @@ class _CartCardState extends State<CartCard> {
                             name: widget.name,
                             price: widget.price,
                             quantity: numOfItems,
-                            // discount: widget.mydata['discount'],
                             image: widget.image,
                             sellingPrice: widget.price,
                           );
-
-                          //                         id;
-                          // final String name;
-                          // final int price;
-                          // final int quantity;
-                          // final int amount;
-                          // final String image;
                         });
                       },
                       color: kPrimaryColor,
@@ -144,15 +106,6 @@ class _CartCardState extends State<CartCard> {
                       child: Icon(Icons.add),
                     ),
                   ),
-                  // FloatingActionButton(
-                  //   heroTag: "btn2",
-                  //   elevation: 2,
-                  //   onPressed: () {},
-                  //   child: Icon(
-                  //     Icons.remove,
-                  //   ),
-                  //   backgroundColor: Colors.red,
-                  // ),
                 ],
               ),
             ),

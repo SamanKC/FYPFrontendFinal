@@ -30,7 +30,7 @@ class Body extends StatelessWidget {
             },
           ),
           ProfileMenu(
-            text: "Settings",
+            text: "My Orders",
             icon: "assets/icons/Shop Icon.svg",
             press: () {
               Navigator.push(

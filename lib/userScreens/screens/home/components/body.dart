@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:medicalpasal/driverScreens/components/drawerWidget.dart';
-import 'package:medicalpasal/userScreens/screens/home/components/appBar.dart';
 import 'package:medicalpasal/userScreens/screens/home/components/discountproducts.dart';
-import 'package:showcaseview/showcaseview.dart';
-
+import 'package:medicalpasal/constants.dart';
+import 'package:medicalpasal/size_config.dart';
 import 'TopPromoSlider.dart';
 import 'categories.dart';
-import 'home_header.dart';
 import 'recent_product.dart';
 import 'homeviewtext.dart';
 
@@ -18,6 +15,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -26,17 +24,14 @@ class _BodyState extends State<Body> {
           TopPromoSlider(),
           Categories(),
 
-          // SpecialOffers(),
-          SizedBox(height: 30.0),
-          // SizedBox(height: getProportionateScreenWidth(30.0)),
-          homeViewText(text: 'Recent Products', view: () {}),
+          SizedBox(height: getProportionateScreenWidth(30.0)),
+          homeViewText(text: 'Recent Products'),
 
           RecentProducts(),
           SizedBox(height: 30.0),
-          homeViewText(text: 'Discount Sale', view: () {}),
+          homeViewText(text: 'Discount Sale'),
           DiscountProducts(),
-          SizedBox(height: 30.0),
-          // SizedBox(height: getProportionateScreenWidth(30.0)),
+          SizedBox(height: getProportionateScreenWidth(30.0)),
         ],
       ),
     );

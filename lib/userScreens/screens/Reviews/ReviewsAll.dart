@@ -86,7 +86,7 @@ class _ReviewsAllState extends State<ReviewsAll> {
                       return ListView.builder(
                           shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
-                          itemCount: 3,
+                          itemCount: snapshot.data.length,
                           itemBuilder: (BuildContext context, int index) {
                             var mydata = snapshot.data[index];
                             return ListTile(
@@ -94,11 +94,20 @@ class _ReviewsAllState extends State<ReviewsAll> {
                                 height: 45.0,
                                 width: 45.0,
                                 decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: NetworkImage(mydata['image']),
-                                        fit: BoxFit.cover),
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(50.0))),
+                                  image: mydata['image'] == null
+                                      ? DecorationImage(
+                                          image: AssetImage(
+                                              'assets/images/userimage.png'),
+                                          fit: BoxFit.cover)
+                                      : DecorationImage(
+                                          image: NetworkImage(apiLink +
+                                              '/profileImage/' +
+                                              mydata['image']),
+                                          fit: BoxFit.cover),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(50.0),
+                                  ),
+                                ),
                               ),
                               title: Row(
                                 mainAxisAlignment:
@@ -129,32 +138,6 @@ class _ReviewsAllState extends State<ReviewsAll> {
       ),
     );
   }
-}
-
-Widget _buildReviews(
-    String date, String details, Function changeRating, String image) {
-  return ListTile(
-    leading: Container(
-      height: 45.0,
-      width: 45.0,
-      decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage(image), fit: BoxFit.cover),
-          borderRadius: BorderRadius.all(Radius.circular(50.0))),
-    ),
-    title: Row(
-      children: <Widget>[
-        Text(
-          date,
-          style: TextStyle(fontSize: 12.0),
-        )
-      ],
-    ),
-    subtitle: Text(
-      details,
-      style: TextStyle(
-          color: Colors.black54, letterSpacing: 0.3, wordSpacing: 0.5),
-    ),
-  );
 }
 
 Widget _line() {

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:medicalpasal/userScreens/components/default_button.dart';
 import 'package:medicalpasal/userScreens/helper/keyboard.dart';
@@ -35,6 +37,7 @@ class _ChangePasswordState extends State<ChangePassword> {
   // Initially password is obscure
   bool _obscureText = true;
   bool _obscureText1 = true;
+  bool _obscureText3 = true;
   // Toggles the password show status
   void _toggle() {
     setState(() {
@@ -45,6 +48,12 @@ class _ChangePasswordState extends State<ChangePassword> {
   void _toggle1() {
     setState(() {
       _obscureText1 = !_obscureText1;
+    });
+  }
+
+  void _toggle3() {
+    setState(() {
+      _obscureText3 = !_obscureText3;
     });
   }
 
@@ -68,22 +77,36 @@ class _ChangePasswordState extends State<ChangePassword> {
     request.headers['Authorization'] = 'Bearer ' + token;
     request.fields['current_password'] = _currentPass.text;
     request.fields['new_password'] = _pass.text;
-    // request.fields['confirm_password'] = _confirmPass.text;
-    // request.fields['price'] = _confirmPass.text;
     var response = await request.send();
     print(response.statusCode);
-    // print(response);
 
     if (response.statusCode == 200) {
-      Get.snackbar(
-        "Success",
-        "Password Changed Successfully",
-        icon: Icon(Icons.account_circle),
-        shouldIconPulse: true,
-        barBlur: 20,
-        isDismissible: true,
-        duration: Duration(seconds: 3),
-      );
+      try {
+        Get.snackbar(
+          "Success",
+          "Password Changed Successfully",
+          icon: Icon(Icons.account_circle),
+          shouldIconPulse: true,
+          barBlur: 20,
+          isDismissible: true,
+          duration: Duration(seconds: 3),
+        );
+        Map data = {};
+        await new Future.delayed(const Duration(seconds: 3));
+        var response = await Api().postData(data, 'logout');
+        var result = json.decode(response.body);
+        if (result['code'] == 200) {
+          SharedPreferences preferences = await SharedPreferences.getInstance();
+          preferences.remove('token');
+          Navigator.popAndPushNamed(context, SignInScreen.routeName);
+        } else {
+          print(result['code']);
+        }
+      } on TimeoutException catch (e) {
+        print('Timeout');
+      } on Error catch (e) {
+        print('Error: $e');
+      }
     } else {
       Get.snackbar(
         "Failed",
@@ -164,17 +187,18 @@ class _ChangePasswordState extends State<ChangePassword> {
                         controller: _confirmPass,
                         validator: (val) {
                           if (val.isEmpty) return 'Empty';
-                          if (val != _pass.text) return 'Not Match';
+                          if (val != _pass.text)
+                            return 'Passwords did not match';
 
                           return null;
                         },
-                        obscureText: _obscureText1,
+                        obscureText: _obscureText3,
                         decoration: InputDecoration(
                             labelText: "Confirm Password",
                             hintText: "Confirm your password",
                             icon: GestureDetector(
                               onTap: () {
-                                _toggle1();
+                                _toggle3();
                               },
                               child: const Padding(
                                   padding: const EdgeInsets.only(top: 15.0),
@@ -191,25 +215,6 @@ class _ChangePasswordState extends State<ChangePassword> {
                         press: () async {
                           if (_form.currentState.validate()) {
                             save(customerId);
-
-                            // print(customerId);
-                            // _pass.text = "";
-                            // _confirmPass.text = "";
-                            //  press: () async {
-                            Map data = {};
-                            var response = await Api().postData(data, 'logout');
-                            var result = json.decode(response.body);
-                            if (result['code'] == 200) {
-                              SharedPreferences preferences =
-                                  await SharedPreferences.getInstance();
-                              preferences.remove('token');
-                              Navigator.popAndPushNamed(
-                                  context, SignInScreen.routeName);
-                            } else {
-                              print(result['code']);
-                            }
-                            // print(result['code']);
-
                           }
                           KeyboardUtil.hideKeyboard(context);
                         },

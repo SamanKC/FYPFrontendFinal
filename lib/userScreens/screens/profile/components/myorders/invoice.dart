@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:medicalpasal/driverScreens/screens/orders/components/emptyOrders.dart';
 
 import 'package:medicalpasal/userScreens/api/api.dart';
 import 'package:medicalpasal/userScreens/screens/profile/components/myorders/orderitem.dart';
@@ -30,7 +31,7 @@ class _InvoiceState extends State<Invoice> {
 
   Future getInvoiceDetails(int id) async {
     try {
-      var response = await Api().getData('invoiceDetails/$id');
+      var response = await Api().getData('invoicedetails/$id');
       var invoice = json.decode(response.body)['data'];
       print(invoice);
       // var data = json.decode(invoice);
@@ -65,14 +66,9 @@ class _InvoiceState extends State<Invoice> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        // leading: Container(),
-        automaticallyImplyLeading: false,
-        // centerTitle: true,
         backgroundColor: Colors.white,
-
         title: Text(
-          'Medical Pasal',
-          style: TextStyle(color: kPrimaryColor),
+          'My Orders',
         ),
       ),
       body: RefreshIndicator(
@@ -90,6 +86,9 @@ class _InvoiceState extends State<Invoice> {
                   future: getInvoiceData(),
                   initialData: [],
                   builder: (context, snapshot) {
+                    if (snapshot.data.isEmpty) {
+                      return EmptyOrders();
+                    }
                     switch (snapshot.connectionState) {
                       case ConnectionState.waiting:
                         return Center(
@@ -140,7 +139,7 @@ class _InvoiceState extends State<Invoice> {
                                               mydata['ward'] +
                                               ', ' +
                                               mydata['address']),
-                                          trailing: Icon(Icons.arrow_forward),
+                                          // trailing: Icon(Icons.arrow_forward),
                                         ),
                                       ),
                                       // Text(
@@ -178,11 +177,6 @@ class _InvoiceState extends State<Invoice> {
                                                           data['product_image'],
                                                       createdat:
                                                           data['created_at'],
-                                                      // productname=,
-                                                      //  productquantity,
-                                                      //  sp=,
-                                                      //  productimage;
-                                                      //  createdat;
                                                     ),
                                                   );
                                                 },

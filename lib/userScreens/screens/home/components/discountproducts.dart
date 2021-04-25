@@ -50,7 +50,6 @@ class _DiscountProductsState extends State<DiscountProducts> {
               if (snapshot.hasData) {
                 return Row(
                   children: [
-                    // Text(mydata['name']),
                     ...List.generate(snapshot.data.length, (index) {
                       var mydata = snapshot.data[index];
 
@@ -62,9 +61,6 @@ class _DiscountProductsState extends State<DiscountProducts> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  // builder: (context) => ProductDetailScreen(
-                                  //       product: mydata,
-                                  //     )),
                                   builder: (context) => DetailsScreen(
                                         mydata: mydata,
                                       )),

@@ -78,10 +78,6 @@ class _CheckOutState extends State<CheckOut> {
                   child: Container(
                     child: ListView(
                       children: <Widget>[
-                        // selectedAddressSection(mydata),
-
-                        // selectedAddressSection(mydata),
-
                         checkoutItem(mydata: mydata),
                         Container(
                           margin: EdgeInsets.all(4),
@@ -97,7 +93,6 @@ class _CheckOutState extends State<CheckOut> {
                                   Text("Cash on Delivery"),
                                 ],
                               ),
-                              // subtitle: Text("Radio 1 Subtitle"),
                               onChanged: (val) {
                                 print("Radio Tile pressed $val");
                                 setSelectedRadioTile(val);
@@ -105,16 +100,10 @@ class _CheckOutState extends State<CheckOut> {
                               },
                               activeColor: kPrimaryColor,
                               autofocus: true,
-                              // secondary: OutlineButton(
-                              //   child: Text("Say Hi"),
-                              //   onPressed: () {
-                              //     print("Say Hello");
-                              //   },
-                              // ),
+                          
                             ),
                           ),
                         ),
-                        // standardDelivery(1, () {}),
                         Container(
                           margin: EdgeInsets.all(4),
                           decoration: BoxDecoration(
@@ -127,31 +116,17 @@ class _CheckOutState extends State<CheckOut> {
                               title: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  // Container(
-                                  //   height: 20,
-                                  //   width: 20,
-                                  //   child: Image.asset(
-                                  //     'assets/images/eSewa.png',
-                                  //     fit: BoxFit.contain,
-                                  //   ),
-                                  // ),
-
+                             
                                   Text("Esewa")
                                 ],
                               ),
-                              // subtitle: Text("Radio 2 Subtitle"),
                               onChanged: (val) {
                                 print("Radio Tile pressed $val");
                                 setSelectedRadioTile(val);
                                 print(selectedRadioTile);
                               },
                               activeColor: kPrimaryColor,
-                              // secondary: OutlineButton(
-                              //   child: Text("Say Hi"),
-                              //   onPressed: () {
-                              //     print("Say Hello");
-                              //   },
-                              // ),
+                           
                             ),
                           ),
                         ),
@@ -161,23 +136,7 @@ class _CheckOutState extends State<CheckOut> {
                   ),
                   flex: 90,
                 ),
-                // ButtonWidget(
-                //   borderColor: appColor,
-                //   buttonColor: appColor,
-                //   textColor: Colors.white,
-                //   borderRadius: 12.0,
-                //   buttonName: 'Proceed to Pay',
-                //   onPressed: () {
-                //     Navigator.push(
-                //       context,
-                //       MaterialPageRoute(
-                //           builder: (context) => PaymentMethod(
-                //                 totalPaidPrice: widget.totalPaidPrice,
-                //                 productDetails: widget.productDetails,
-                //               )),
-                //     );
-                //   },
-                // ),
+           
               ],
             );
           } else if (snapshot.hasError) {
@@ -198,16 +157,9 @@ class _CheckOutState extends State<CheckOut> {
           press: () async {
             Map data = {
               'total': widget.totalPaidPrice,
-              // 'total': providerData.totalSp,
               'transaction_type': selectedRadioTile,
               'products': widget.productDetails,
-              // 'products': providerData.product.map((e) {
-              //   return {
-              //     'product_id': e.id,
-              //     'quantity': e.quantity,
-              //     'price': e.sellingPrice,
-              //   };
-              // }).toList()
+         
             };
 
             var response = await Api().postData(data, 'invoice');
@@ -366,8 +318,6 @@ class _CheckOutState extends State<CheckOut> {
                   Colors.grey.shade700),
               createPriceItem("Bag discount", widget.totalDiscount.toString(),
                   Colors.teal.shade300),
-              // productData.totalDiscount.toString(), Colors.teal.shade300),
-              // createPriceItem("Order Total", productData.totalAmount.toString(),
               createPriceItem("Order Total", widget.totalSp.toString(),
                   Colors.grey.shade700),
               createPriceItem(

@@ -5,10 +5,9 @@ import 'package:medicalpasal/userScreens/api/api.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'package:medicalpasal/size_config.dart';
-
+import 'package:medicalpasal/userScreens/screens/Reviews/ReviewsAll.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:medicalpasal/userScreens/provider/productsprovider.dart';
-import 'package:medicalpasal/userScreens/screens/Reviews/ReviewsAll.dart';
 import 'package:medicalpasal/userScreens/screens/checkoutpage/checkoutPage.dart';
 import 'package:provider/provider.dart';
 import '../../../../constants.dart';
@@ -30,8 +29,6 @@ class _BodyState extends State<Body> {
   var list1;
   var list2;
   bool favourite = false;
-  // double rating = 3.5;
-  // int starCount = 5;
   int valueItemChart = 0;
   String valueText;
 
@@ -64,18 +61,6 @@ class _BodyState extends State<Body> {
     }
   }
 
-  Future getReview() async {
-    try {
-      var response = await Api().getData("review/${widget.product['id']}");
-      var reviews = json.decode(response.body)['data'];
-      print(reviews);
-      return reviews;
-    } on SocketException {
-      return null;
-    }
-  }
-
-  /// Declaration List item HomeGridItemRe....dart Class
 
   /// BottomSheet for view more in specification
   void _bottomSheet() {
@@ -350,21 +335,21 @@ class _BodyState extends State<Body> {
                         child: Text(widget.product['description'],
                             style: detailText),
                       ),
-                      Center(
-                        child: InkWell(
-                          onTap: () {
-                            _bottomSheet();
-                          },
-                          child: Text(
-                            "View More",
-                            style: TextStyle(
-                              color: Colors.indigoAccent,
-                              fontSize: 15.0,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                      ),
+                      // Center(
+                      //   child: InkWell(
+                      //     onTap: () {
+                      //       _bottomSheet();
+                      //     },
+                      //     child: Text(
+                      //       "View More",
+                      //       style: TextStyle(
+                      //         color: Colors.indigoAccent,
+                      //         fontSize: 15.0,
+                      //         fontWeight: FontWeight.w700,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -476,7 +461,7 @@ class _BodyState extends State<Body> {
                   )
                 ]),
                 child: Padding(
-                  padding: EdgeInsets.only(top: 20.0, left: 20.0),
+                  padding: EdgeInsets.only(top: 20.0, left: 20.0, bottom: 20.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -487,52 +472,40 @@ class _BodyState extends State<Body> {
                             'Reviews',
                             style: subHeaderCustomStyle,
                           ),
-                          // Padding(
-                          //   padding: const EdgeInsets.only(
-                          //       left: 20.0, top: 15.0, bottom: 15.0),
-                          //   child: Row(
-                          //     crossAxisAlignment:
-                          //         CrossAxisAlignment.start,
-                          //     mainAxisAlignment: MainAxisAlignment.start,
-                          //     children: <Widget>[
-                          // InkWell(
-                          //   child: Padding(
-                          //       padding: EdgeInsets.only(
-                          //           top: 2.0, right: 3.0),
-                          //       child: Text(
-                          //         'View All',
-                          //         style:
-                          //             subHeaderCustomStyle.copyWith(
-                          //                 color:
-                          //                     Colors.indigoAccent,
-                          //                 fontSize: 14.0),
-                          //       )),
-                          //   onTap: () {
-                          //     Navigator.push(
-                          //         context,
-                          //         MaterialPageRoute(
-                          //             builder: (context) =>
-                          //                 ReviewsAll(
-                          //                     product:
-                          //                         widget.product)));
-                          //   },
-                          // ),
-                          // Padding(
-                          //   padding: const EdgeInsets.only(
-                          //       right: 15.0, top: 2.0),
-                          //   child: Icon(
-                          //     Icons.arrow_forward_ios,
-                          //     size: 18.0,
-                          //     color: Colors.black54,
-                          //   ),
-                          // )
-                          // ],
-                          // ),
-                          // )
+                          Container(
+                            child: Row(
+                              children: [
+                                InkWell(
+                                  child: Text(
+                                    'View All',
+                                    style: subHeaderCustomStyle.copyWith(
+                                        color: Colors.indigoAccent,
+                                        fontSize: 14.0),
+                                  ),
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => ReviewsAll(
+                                                product: widget.product)));
+                                  },
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      right: 15.0, top: 2.0),
+                                  child: Icon(
+                                    Icons.arrow_forward_ios,
+                                    size: 18.0,
+                                    color: Colors.black54,
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
                         ],
                       ),
                       Padding(
-                        padding: EdgeInsets.only(right: 20.0),
+                        padding: EdgeInsets.only(right: 20.0, top: 10.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
@@ -618,58 +591,7 @@ class _BodyState extends State<Body> {
                             left: 0.0, right: 20.0, top: 15.0, bottom: 7.0),
                         child: _line(),
                       ),
-                      FutureBuilder(
-                          future: getReview(),
-                          initialData: [],
-                          builder: (context, snapshot) {
-                            if (snapshot.data.isEmpty) {
-                              return Center(child: Text("No Reviews Yet!!"));
-                            }
-                            switch (snapshot.connectionState) {
-                              case ConnectionState.waiting:
-                                return Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                                break;
-                              default:
-                                return ListView.builder(
-                                    shrinkWrap: true,
-                                    physics: NeverScrollableScrollPhysics(),
-                                    itemCount: snapshot.data.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      var mydata = snapshot.data[index];
-                                      return ListTile(
-                                        leading: Container(
-                                          height: 45.0,
-                                          width: 45.0,
-                                          decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                  image: NetworkImage(
-                                                      mydata['image']),
-                                                  fit: BoxFit.cover),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(50.0))),
-                                        ),
-                                        title: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: <Widget>[
-                                            Text(mydata['name']),
-                                            Text(
-                                              mydata['review_date'],
-                                              style: TextStyle(fontSize: 12.0),
-                                            )
-                                          ],
-                                        ),
-                                        subtitle: Text(
-                                          mydata['comment'],
-                                          style: detailText,
-                                        ),
-                                      );
-                                    });
-                            }
-                          }),
+                      // review(widget.product),
                       Padding(padding: EdgeInsets.only(bottom: 20.0)),
                     ],
                   ),
@@ -841,6 +763,7 @@ class _BodyState extends State<Body> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => CheckOut(
+                                  totalPaidPrice: widget.product['sp'],
                                   totalAmount: widget.product["price"],
                                   totalDiscount: widget.product["price"] -
                                       widget.product["sp"],

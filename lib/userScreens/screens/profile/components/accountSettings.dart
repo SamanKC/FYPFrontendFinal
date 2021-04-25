@@ -20,19 +20,19 @@ class _AccountSettingsState extends State<AccountSettings> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 15.0, top: 15.0),
-              child: Text(
-                'Account',
-                style: TextStyle(
-                  color: Colors.black54,
-                  fontSize: 17.0,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-            buildAccountSettings(sub1: 'Address'),
-            buildAccountSettings(sub1: 'Phone'),
+            // Padding(
+            //   padding: const EdgeInsets.only(bottom: 15.0, top: 15.0),
+            //   child: Text(
+            //     'Account',
+            //     style: TextStyle(
+            //       color: Colors.black54,
+            //       fontSize: 17.0,
+            //       fontWeight: FontWeight.w600,
+            //     ),
+            //   ),
+            // ),
+            // buildAccountSettings(sub1: 'Address'),
+            // buildAccountSettings(sub1: 'Phone'),
             Padding(
               padding: const EdgeInsets.only(bottom: 15.0, top: 15.0),
               child: Text(

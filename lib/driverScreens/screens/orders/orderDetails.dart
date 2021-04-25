@@ -220,16 +220,29 @@ class _OrderDetailsState extends State<OrderDetails> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Address: ' +
-                            widget.city +
-                            ', ' +
-                            widget.area +
-                            ', ' +
-                            widget.ward +
-                            ', ' +
-                            widget.address),
-                        IconButton(
-                            icon: Icon(Icons.location_city), onPressed: null)
+                        Container(
+                          width: MediaQuery.of(context).size.width - 40,
+                          child: Column(
+                            children: [
+                              RichText(
+                                // overflow: TextOverflow.ellipsis,
+                                text: TextSpan(
+                                  text: 'Address: ' +
+                                      widget.city +
+                                      ', ' +
+                                      widget.area +
+                                      ', ' +
+                                      widget.ward +
+                                      ', ' +
+                                      widget.address,
+                                  style: Theme.of(context).textTheme.bodyText2,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        // IconButton(
+                        //     icon: Icon(Icons.location_city), onPressed: () {})
                       ],
                     ),
                     SizedBox(

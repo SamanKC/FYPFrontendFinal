@@ -4,6 +4,8 @@ import 'package:medicalpasal/userScreens/screens/home/components/productcategori
 import 'package:flutter/material.dart';
 import 'package:medicalpasal/userScreens/api/api.dart';
 
+import '../../../../size_config.dart';
+
 class Categories extends StatelessWidget {
   Future getCategoryData() async {
     try {
@@ -18,6 +20,7 @@ class Categories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Column(
@@ -41,9 +44,6 @@ class Categories extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  // builder: (context) => ProductDetailScreen(
-                                  //       product: mydata,
-                                  //     )),
                                   builder: (context) => ProductsCategories(
                                         catid: mydata['id'].toString(),
                                       )),
@@ -51,9 +51,7 @@ class Categories extends StatelessWidget {
                             print('category pressed');
                           },
                           child: Container(
-                            width: 100,
-                            // width: getProportionateScreenWidth(100),
-                            // height: getProportionateScreenHeight(70),
+                            width: getProportionateScreenWidth(100),
                             child: Column(
                               children: [
                                 Card(
@@ -65,8 +63,7 @@ class Categories extends StatelessWidget {
                                   child: Image.network(
                                     mydata['image'],
                                     fit: BoxFit.fill,
-                                    height: 80,
-                                    // height: getProportionateScreenHeight(80),
+                                    height: getProportionateScreenHeight(80),
                                   ),
                                 ),
                                 Text(
@@ -77,33 +74,10 @@ class Categories extends StatelessWidget {
                           ),
                         ),
                       );
-                    }
-                        // if (mydata[index].isPopular)
-
-                        // return SizedBox
-                        //     .shrink(); // here by default width and height is 0
-                        // return ProductCard(product: mydata);
-                        // return Column(
-                        //   children: [Text(snapshot.data[index]['name'])],
-                        // );5
-                        // return Text(mydata.length.toString());
-
-                        ),
-                    SizedBox(width: 20),
-                    // SizedBox(width: getProportionateScreenWidth(20)),
+                    }),
+                    SizedBox(width: getProportionateScreenWidth(20)),
                   ],
                 );
-                // return Text(mydata.length.toString());
-                // return Text(snapshot.data[0]['discount'].toString());
-                // return ListView.builder(
-                //   physics: NeverScrollableScrollPhysics(),
-                //   shrinkWrap: true,
-                //   itemCount: snapshot.data.length,
-                //   itemBuilder: (context, index) {
-                //     var mydata = snapshot.data[index];
-                //     return Text(mydata['discount'].toString());
-                //   },
-                // );
               } else if (snapshot.hasError) {
                 return Text('Cannot load at this time');
               } else {

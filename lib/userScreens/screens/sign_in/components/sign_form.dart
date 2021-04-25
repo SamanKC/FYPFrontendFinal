@@ -147,6 +147,9 @@ class _SignFormState extends State<SignForm> {
                   preferences.setString('token', result['token']);
                   // getuserDetails();
                   print(user_type.toString());
+                  print(result['token']);
+                  print(result['code']);
+                  print('Login Successful');
                   if (result['user']['user_type'] == 1) {
                     Navigator.popAndPushNamed(context, LandingPage.routeName);
                   } else if (result['user']['user_type'] == 2) {

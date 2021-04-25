@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../constants.dart';
 
-
 Widget homeViewText({String text, Function view}) {
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 20),
@@ -15,10 +14,10 @@ Widget homeViewText({String text, Function view}) {
           style: TextStyle(
               color: kPrimaryColor, fontSize: 18, fontWeight: FontWeight.bold),
         ),
-        GestureDetector(
-          onTap: view,
-          child: Text('View All '),
-        )
+        // GestureDetector(
+        //   onTap: view,
+        //   child: Text('View All '),
+        // )
       ],
     ),
   );
